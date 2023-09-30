@@ -95,7 +95,7 @@
     @apply min-h-screen;
   }
   body {
-    @apply flex flex-col bg-background text-foreground px-4 md:px-32;
+    @apply flex flex-col bg-background text-foreground px-4 md:px-16 xl:px-32;
   }
 
   .todo {

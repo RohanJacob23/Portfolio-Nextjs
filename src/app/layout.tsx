@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={quicksand.className}>
         <section className="flex flex-col">
-          <div className="flex items-center justify-between md:justify-normal py-4 px-2 md:gap-6 md:py-6 md:px-4 text-lg md:text-2xl font-normal md:font-medium">
+          <div className="flex items-center max-sm:justify-between py-4 px-2 sm:gap-6 lg:py-6 lg:px-4 text-lg lg:text-2xl font-normal lg:font-medium">
             <Link href="/#aboutMe" className="cursor-pointer">
               About Me
             </Link>
