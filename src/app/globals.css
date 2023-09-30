@@ -87,6 +87,7 @@
     @apply border-border;
   }
   html {
+    -webkit-tap-highlight-color: transparent;
     scroll-behavior: smooth;
   }
   html,

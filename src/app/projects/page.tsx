@@ -1,6 +1,7 @@
 import { projectArray } from "@/projectArray/projectArray";
 import clsx from "clsx";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function page() {
@@ -22,6 +23,8 @@ export default function page() {
               objectPosition,
               classTitle,
               mobile,
+              githubLink,
+              link,
             },
             i
           ) => (
@@ -72,7 +75,30 @@ export default function page() {
                   style={{ backgroundColor: bgColor }}
                 ></div>
               </div>
-              {content}
+              <div className="flex flex-col gap-6 justify-center items-center md:items-start">
+                {content}
+
+                <div className="flex items-center justify-center gap-6">
+                  <Link href={githubLink} target="_blank">
+                    <Image
+                      src="/icons/github.png"
+                      alt="github"
+                      width={200}
+                      height={200}
+                      className="w-8 h-8"
+                    />
+                  </Link>
+                  <Link href={link} target="_blank">
+                    <Image
+                      src="/icons/link.png"
+                      alt="link"
+                      width={200}
+                      height={200}
+                      className="w-7 h-7"
+                    />
+                  </Link>
+                </div>
+              </div>
             </div>
           )
         )}

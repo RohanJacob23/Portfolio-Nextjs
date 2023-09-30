@@ -2,7 +2,7 @@ export const projectArray = [
   {
     id: 1,
     desktop: "/projects/desktop/taskmanagement.png",
-    mobile:"/projects/mobile/taskmanagement.png",
+    mobile: "/projects/mobile/taskmanagement.png",
     alt: "Task Management",
     bgColor: "#D81C84",
     content: (
@@ -14,11 +14,13 @@ export const projectArray = [
     ),
     objectPosition: "left",
     classTitle: "task",
+    githubLink: "https://github.com/RohanJacob23/Task-Management-Board",
+    link: "https://task-management-board.vercel.app",
   },
   {
     id: 2,
     desktop: "/projects/desktop/todo.png",
-    mobile:"/projects/mobile/todo.png",
+    mobile: "/projects/mobile/todo.png",
     alt: "Todo",
     bgColor: "#4234A7",
     content: (
@@ -29,11 +31,13 @@ export const projectArray = [
     ),
     objectPosition: "center",
     classTitle: "todo",
+    githubLink: "https://github.com/RohanJacob23/todo-app",
+    link: "https://todo-app-beta-lemon.vercel.app",
   },
   {
     id: 3,
     desktop: "/projects/desktop/catWiki.png",
-    mobile:"/projects/mobile/catWiki.png",
+    mobile: "/projects/mobile/catWiki.png",
     alt: "Cat Wiki",
     bgColor: "#4D270C",
     content: (
@@ -44,11 +48,13 @@ export const projectArray = [
     ),
     objectPosition: "top",
     classTitle: "catWiki",
+    githubLink: "https://github.com/RohanJacob23/MyCat-Wiki",
+    link: "https://my-cat-wiki.vercel.app",
   },
   {
     id: 4,
     desktop: "/projects/desktop/spotify.png",
-    mobile:"/projects/mobile/spotify.png",
+    mobile: "/projects/mobile/spotify.png",
     alt: "Spotify",
     bgColor: "#1ED860",
     content: (
@@ -61,11 +67,13 @@ export const projectArray = [
     ),
     objectPosition: "left",
     classTitle: "spotify",
+    githubLink: "https://github.com/RohanJacob23/Spotify-Clone",
+    link: "https://spotify-clone-git-main-rohanjacob23.vercel.app",
   },
   {
     id: 5,
     desktop: "/projects/desktop/disney.png",
-    mobile:"/projects/mobile/disney.png",
+    mobile: "/projects/mobile/disney.png",
     alt: "Disney",
     bgColor: "#5B5BC0",
     content: (
@@ -78,11 +86,13 @@ export const projectArray = [
     ),
     objectPosition: "left",
     classTitle: "disney",
+    githubLink: "https://github.com/RohanJacob23/Disney-HotStar-clone",
+    link: "https://disney-hot-star-clone.vercel.app",
   },
   {
     id: 4,
     desktop: "/projects/desktop/dictionary.png",
-    mobile:"/projects/mobile/dictionary.png",
+    mobile: "/projects/mobile/dictionary.png",
     alt: "Dictionary",
     bgColor: "#00ADB5",
     content: (
@@ -95,5 +105,7 @@ export const projectArray = [
     ),
     objectPosition: "center",
     classTitle: "dictionary",
+    githubLink: "https://github.com/RohanJacob23/Dictionary-Web-App",
+    link: "https://dictionary-web-app-eosin.vercel.app/",
   },
 ];
