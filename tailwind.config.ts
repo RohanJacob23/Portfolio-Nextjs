@@ -20,6 +20,7 @@ module.exports = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        hoverBg: "#00C298",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {

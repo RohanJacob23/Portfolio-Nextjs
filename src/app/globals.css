@@ -54,8 +54,10 @@
     --primary: 167, 100%, 38%;
     --primary-foreground: 0, 0, 100%;
 
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 167, 100%, 14%;
     --secondary-foreground: 0 0% 98%;
+    /* --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%; */
 
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
@@ -95,7 +97,7 @@
     @apply min-h-screen;
   }
   body {
-    @apply flex flex-col bg-background text-foreground px-4 md:px-16 xl:px-32;
+    @apply flex flex-col bg-background text-foreground !px-4 md:!px-16 xl:!px-32;
   }
 
   .todo {

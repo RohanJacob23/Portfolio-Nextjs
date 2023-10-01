@@ -90,7 +90,7 @@ export const projectArray = [
     link: "https://disney-hot-star-clone.vercel.app",
   },
   {
-    id: 4,
+    id: 6,
     desktop: "/projects/desktop/dictionary.png",
     mobile: "/projects/mobile/dictionary.png",
     alt: "Dictionary",

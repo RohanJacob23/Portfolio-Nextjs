@@ -3,6 +3,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import Link from "next/link";
+import ContactDialog from "@/components/ContactDialog";
+import { Toaster } from "@/components/ui/toaster";
 
 const quicksand = Quicksand({ weight: ["500"], subsets: ["latin"] });
 
@@ -27,11 +29,13 @@ export default function RootLayout({
             <Link href="/projects" className="curssor-pointer">
               Projects
             </Link>
-            <h1 className="cursor-pointer">Contact Me</h1>
+            {/* <h1 className="cursor-pointer">Contact Me</h1> */}
+            <ContactDialog />
           </div>
           <Separator className="h-0.5 bg-[#404F4C]" />
         </section>
         {children}
+        <Toaster />
       </body>
     </html>
   );
