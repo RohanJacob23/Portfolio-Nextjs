@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main id="aboutMe" className="flex w-full grow items-center">
@@ -9,7 +11,13 @@ export default function Home() {
         <h3 className="text-[2rem] md:text-[2.68rem]">
           A freelance web developer from India.
         </h3>
-        <p className="text-lg md:text-2xl">My Resume</p>
+        <Link
+          href="/Rohan_Koshy_Jacob_Resume.pdf"
+          target="_blank"
+          className="text-lg md:text-2xl"
+        >
+          My Resume
+        </Link>
       </section>
     </main>
   );
