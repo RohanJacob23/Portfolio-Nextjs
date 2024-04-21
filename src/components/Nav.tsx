@@ -36,7 +36,7 @@ export default function Nav() {
                 duration: 0.5,
               }}
               style={{ borderRadius: "9999px" }}
-              className="absolute inset-0 size-full bg-white z-10 mix-blend-difference"
+              className="absolute inset-0 size-full bg-[#ffffcc] z-10 mix-blend-difference"
             ></motion.div>
           )}
         </div>
