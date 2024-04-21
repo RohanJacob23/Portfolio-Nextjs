@@ -1,8 +1,31 @@
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { EnvelopeClosedIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Contact Page",
+};
+
 export default function page() {
   return (
     <div className="flex-1 p-4 md:p-8 space-y-4 text-xl">
-      <h2 className="border-none">Contact page</h2>
-      <h3 className="text-muted-foreground">Comming soon</h3>
+      {/* social links */}
+      <div className="flex flex-col items-start gap-4">
+        <Button variant="link" asChild className="text-xl pl-0 gap-2">
+          <Link href="https://twitter.com/R_Jacob2374">
+            <TwitterLogoIcon className="size-6" />
+            Twitter
+          </Link>
+        </Button>
+        <Button variant="link" asChild className="text-xl pl-0 gap-2">
+          <Link href="mailto: rohankoshyjacob@gmail.com" target="_blank">
+            <EnvelopeClosedIcon className="size-6" />
+            Gmail
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }
