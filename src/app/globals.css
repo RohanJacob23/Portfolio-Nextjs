@@ -4,8 +4,6 @@
 
 @layer base {
   :root {
-    --gradient: linear-gradient(90deg, #00c49a 0%, #04afb1 49%, #0a91d1 100%);
-
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
 
@@ -38,10 +36,8 @@
   }
 
   .dark {
-    --background: 168, 100%, 4%;
-    --foreground: 233, 90%, 96%, 1;
-    /* --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%; */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -49,15 +45,11 @@
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    /* --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%; */
-    --primary: 167, 100%, 38%;
-    --primary-foreground: 0, 0, 100%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
 
-    --secondary: 167, 100%, 14%;
+    --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
-    /* --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%; */
 
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
@@ -74,88 +66,36 @@
   }
 }
 
-@layer components {
-  .gradient {
-    font-weight: 600;
-    background: var(--gradient);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
-
 @layer base {
   * {
     @apply border-border;
   }
-  html {
-    -webkit-tap-highlight-color: transparent;
-    scroll-behavior: smooth;
+  h1 {
+    @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
   }
-  html,
-  body {
+  h2 {
+    @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0;
+  }
+  h3 {
+    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+  }
+  h4 {
+    @apply scroll-m-20 text-xl font-semibold tracking-tight;
+  }
+  p {
+    @apply leading-7;
+  }
+  .lead {
+    @apply text-xl text-muted-foreground;
+  }
+  html {
     @apply min-h-screen;
   }
   body {
-    @apply flex flex-col bg-background text-foreground !px-4 md:!px-16 xl:!px-32;
+    @apply flex flex-col bg-background text-foreground min-h-screen relative;
   }
 
-  .todo {
-    filter: drop-shadow(
-        0px 2.767256498336792px 2.2138051986694336px rgba(66, 52, 167, 0.23)
-      )
-      drop-shadow(
-        0px 6.650102138519287px 5.32008171081543px rgba(66, 52, 167, 0.17)
-      )
-      drop-shadow(
-        0px 12.521552085876465px 10.017241477966309px rgba(66, 52, 167, 0.14)
-      )
-      drop-shadow(
-        0px 22.3363094329834px 17.869047164916992px rgba(66, 52, 167, 0.12)
-      )
-      drop-shadow(
-        0px 41.777610778808594px 33.422088623046875px rgba(66, 52, 167, 0.09)
-      )
-      drop-shadow(0px 100px 80px rgba(66, 52, 167, 0.06));
-  }
-  .task {
-    box-shadow: 0px 2.76726px 2.21381px 0px rgba(216, 28, 132, 0.22),
-      0px 6.6501px 5.32008px 0px rgba(216, 28, 132, 0.16),
-      0px 12.52155px 10.01724px 0px rgba(216, 28, 132, 0.13),
-      0px 22.33631px 17.86905px 0px rgba(216, 28, 132, 0.11),
-      0px 41.77761px 33.42209px 0px rgba(216, 28, 132, 0.09),
-      0px 100px 80px 0px rgba(216, 28, 132, 0.06);
-  }
-  .catWiki {
-    box-shadow: 0px 2.76726px 2.21381px 0px rgba(77, 39, 12, 0.31),
-      0px 6.6501px 5.32008px 0px rgba(77, 39, 12, 0.22),
-      0px 12.52155px 10.01724px 0px rgba(77, 39, 12, 0.18),
-      0px 22.33631px 17.86905px 0px rgba(77, 39, 12, 0.16),
-      0px 41.77761px 33.42209px 0px rgba(77, 39, 12, 0.13),
-      0px 100px 80px 0px rgba(77, 39, 12, 0.09);
-  }
-  .spotify {
-    box-shadow: 0px 2.76726px 2.21381px 0px rgba(30, 216, 96, 0.19),
-      0px 6.6501px 5.32008px 0px rgba(30, 216, 96, 0.14),
-      0px 12.52155px 10.01724px 0px rgba(30, 216, 96, 0.11),
-      0px 22.33631px 17.86905px 0px rgba(30, 216, 96, 0.09),
-      0px 41.77761px 33.42209px 0px rgba(30, 216, 96, 0.08),
-      0px 100px 80px 0px rgba(30, 216, 96, 0.05);
-  }
-  .disney {
-    box-shadow: 0px 2.76726px 2.21381px 0px rgba(91, 91, 192, 0.25),
-      0px 6.6501px 5.32008px 0px rgba(91, 91, 192, 0.18),
-      0px 12.52155px 10.01724px 0px rgba(91, 91, 192, 0.15),
-      0px 22.33631px 17.86905px 0px rgba(91, 91, 192, 0.13),
-      0px 41.77761px 33.42209px 0px rgba(91, 91, 192, 0.1),
-      0px 100px 80px 0px rgba(91, 91, 192, 0.07);
-  }
-  .dictionary {
-    box-shadow: 0px 2.76726px 2.21381px 0px rgba(0, 173, 181, 0.23),
-      0px 6.6501px 5.32008px 0px rgba(0, 173, 181, 0.17),
-      0px 12.52155px 10.01724px 0px rgba(0, 173, 181, 0.14),
-      0px 22.33631px 17.86905px 0px rgba(0, 173, 181, 0.12),
-      0px 41.77761px 33.42209px 0px rgba(0, 173, 181, 0.09),
-      0px 100px 80px 0px rgba(0, 173, 181, 0.06);
+  html {
+    -webkit-tap-highlight-color: transparent;
   }
 }
