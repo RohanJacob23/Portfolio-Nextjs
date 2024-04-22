@@ -11,7 +11,7 @@ export default function page() {
   return (
     <div className="flex-1 p-4 md:p-8 space-y-4 text-xl text-muted-foreground">
       <p>
-        I am{" "}
+        I&apos;m{" "}
         <span className="text-foreground border-b-2 font-medium border-[#ffffcc]">
           Rohan Koshy Jacob
         </span>
@@ -40,11 +40,10 @@ export default function page() {
         I&apos;m passionate about creating impactful{" "}
         <span className="text-foreground border-b-2 font-medium border-[#ffffcc]">
           web applications
-        </span>
+        </span>{" "}
         and seek an opportunity to learn and grow alongside experienced
         developers.
       </p>
-      {/* <p className="text-muted-foreground">Comming soon</p> */}
     </div>
   );
 }

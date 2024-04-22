@@ -92,7 +92,7 @@
     @apply min-h-screen;
   }
   body {
-    @apply flex flex-col bg-background text-foreground min-h-screen relative;
+    @apply flex flex-col bg-background text-foreground min-h-screen relative font-jetBrainsMono;
   }
 
   html {

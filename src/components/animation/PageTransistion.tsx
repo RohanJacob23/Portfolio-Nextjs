@@ -64,8 +64,8 @@ export default function PageTransistion({
         animate={{ opacity: 1, y: 0 }}
         transition={{
           type: "spring",
-          bounce: 0.6,
-          duration: 0.75,
+          bounce: 0.55,
+          duration: 0.5,
           delay: 2.25,
         }}
         className="flex flex-col flex-1"
