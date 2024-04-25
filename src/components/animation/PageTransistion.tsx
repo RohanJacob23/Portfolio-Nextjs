@@ -57,7 +57,7 @@ export default function PageTransistion({
       <motion.div
         ref={whiteSliderRef}
         initial={{ scaleY: 0 }}
-        className="absolute inset-0 size-full bg-black z-40"
+        className="absolute inset-0 size-full bg-accent z-40"
       ></motion.div>
       <motion.section
         initial={{ opacity: 0, y: 30 }}

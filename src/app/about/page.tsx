@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function page() {
   const skills = ["React", "Next.js", "MongoDB", "Tailwind CSS"];
   return (
-    <div className="flex-1 p-4 md:p-8 space-y-4 text-xl text-muted-foreground">
+    <div className="flex-1 p-4 md:p-8 space-y-4 text-xl text-muted-foreground max-w-screen-lg">
       <p>
         I&apos;m{" "}
         <span className="text-foreground border-b-2 font-medium border-[#ffffcc]">
