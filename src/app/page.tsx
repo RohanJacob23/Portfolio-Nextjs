@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+/**
+ * Renders the Home component.
+ *
+ * @return {JSX.Element} The rendered Home component.
+ */
 export default function Home() {
   return (
     <div className="flex-1 p-4 md:p-8 content-center space-y-4">

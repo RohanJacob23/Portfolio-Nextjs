@@ -15,6 +15,13 @@ export const metadata: Metadata = {
   description: "Welcome to my portfolio",
 };
 
+/**
+ * Renders the root layout of the application.
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {React.ReactNode} props.children - The child components to render.
+ * @return {React.ReactElement} The root layout component.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{
