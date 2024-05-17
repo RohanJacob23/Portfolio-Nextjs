@@ -16,12 +16,6 @@ export default function Home() {
         </span>
       </h1>
       <h2 className="border-none">A freelance web developer from India.</h2>
-      <Link
-        href={"/resume.pdf"}
-        className="!mt-2 scroll-m-20 text-xl font-semibold tracking-tight"
-      >
-        Resume
-      </Link>
     </div>
   );
 }
