@@ -12,11 +12,11 @@ export default function page() {
     <div className="flex-1 p-4 md:p-8 space-y-4 text-xl text-muted-foreground max-w-screen-lg">
       <p>
         I&apos;m{" "}
-        <span className="text-foreground border-b-2 font-medium border-[#ffffcc]">
+        <span className="text-foreground font-medium underline underline-offset-2 decoration-primary">
           Rohan Koshy Jacob
         </span>
         , a highly motivated and results-oriented{" "}
-        <span className="text-foreground border-b-2 font-medium border-[#ffffcc]">
+        <span className="text-foreground font-medium underline underline-offset-2 decoration-primary">
           web developer
         </span>{" "}
         with a strong foundation in both front-end and back-end development.
@@ -26,7 +26,7 @@ export default function page() {
         {skills.map((skill, i) => (
           <React.Fragment key={i}>
             {i === skills.length - 1 ? " and " : " "}
-            <span className="text-foreground border-b-2 font-medium border-[#ffffcc]">
+            <span className="text-foreground font-medium underline underline-offset-2 decoration-primary">
               {skill}
               {i !== skills.length - 1 && ","}
             </span>{" "}
@@ -38,7 +38,7 @@ export default function page() {
       </p>
       <p>
         I&apos;m passionate about creating impactful{" "}
-        <span className="text-foreground border-b-2 font-medium border-[#ffffcc]">
+        <span className="text-foreground font-medium underline underline-offset-2 decoration-primary">
           web applications
         </span>{" "}
         and seek an opportunity to learn and grow alongside experienced

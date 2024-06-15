@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 export default function Nav() {
   const pathname = usePathname();
@@ -22,7 +23,10 @@ export default function Nav() {
         >
           <Link
             href={link.href}
-            className="text-sm md:text-base relative md:font-medium text-foreground transition"
+            className={cn(
+              "text-sm md:text-base relative md:font-medium transition z-20",
+              pathname === link.href ? "text-white" : "text-primary-200"
+            )}
           >
             {link.name}
           </Link>
@@ -36,7 +40,7 @@ export default function Nav() {
                 duration: 0.5,
               }}
               style={{ borderRadius: "9999px" }}
-              className="absolute inset-0 size-full bg-[#ffffcc] z-10 mix-blend-difference"
+              className="absolute inset-0 size-full bg-primary z-10 mix-blend-difference"
             ></motion.div>
           )}
         </div>

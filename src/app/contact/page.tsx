@@ -20,7 +20,7 @@ export default function page() {
         <Button
           variant="link"
           asChild
-          className="text-xl pl-0 gap-2 decoration-[#ffffcc]"
+          className="text-xl pl-0 gap-2 decoration-primary text-white"
         >
           <Link href="https://twitter.com/R_Jacob2374">
             <TwitterLogoIcon className="size-6" />
@@ -30,7 +30,7 @@ export default function page() {
         <Button
           variant="link"
           asChild
-          className="text-xl pl-0 gap-2 decoration-[#ffffcc]"
+          className="text-xl pl-0 gap-2 decoration-primary text-white"
         >
           <Link href="https://github.com/RohanJacob23">
             <GitHubLogoIcon className="size-6" />
@@ -40,7 +40,7 @@ export default function page() {
         <Button
           variant="link"
           asChild
-          className="text-xl pl-0 gap-2 decoration-[#ffffcc]"
+          className="text-xl pl-0 gap-2 decoration-primary text-white"
         >
           <Link href="mailto: rohankoshyjacob@gmail.com" target="_blank">
             <EnvelopeClosedIcon className="size-6" />

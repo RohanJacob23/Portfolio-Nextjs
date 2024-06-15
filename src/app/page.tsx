@@ -12,7 +12,7 @@ export default function Home() {
         <span>Hello!</span>
         <span>
           I&apos;m{" "}
-          <span className="border-b-2 border-[#ffffcc]">Rohan K. Jacob</span>
+          <span className="underline decoration-primary">Rohan K. Jacob</span>
         </span>
       </h1>
       <h2 className="border-none">A freelance web developer from India.</h2>
