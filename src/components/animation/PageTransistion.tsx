@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { motion, useAnimate } from "framer-motion";
+import useMeasure from "react-use-measure";
 
 export default function PageTransistion({
   children,
@@ -10,6 +11,7 @@ export default function PageTransistion({
 }) {
   const [blackSliderRef, blackSliderAnimate] = useAnimate();
   const [whiteSliderRef, whiteSliderAnimate] = useAnimate();
+  const [containerRef, bounds] = useMeasure();
 
   useEffect(() => {
     const whiteSliderAnimation = async () => {
@@ -60,15 +62,17 @@ export default function PageTransistion({
         className="absolute inset-0 size-full bg-primary-950 z-40 max-h-screen"
       ></motion.div>
       <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
+        ref={containerRef}
+        layout
+        initial={{ opacity: 0, y: 30, height: 0 }}
+        animate={{ opacity: 1, y: 0, flex: 1, height: [bounds.height] }}
         transition={{
           type: "spring",
           bounce: 0.55,
           duration: 0.5,
           delay: 2.25,
         }}
-        className="flex flex-col flex-1"
+        className="flex flex-col min-h-screen"
       >
         {children}
       </motion.section>

@@ -51,7 +51,7 @@ export default function page() {
     },
     {
       id: 7,
-      title: "Dictionary Web Ap",
+      title: "Dictionary Web App",
       description:
         "Dictionary web app built using react and dictionary web api.",
       liveLink: "https://dictionary-web-app-eosin.vercel.app",
