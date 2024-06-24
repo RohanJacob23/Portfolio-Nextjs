@@ -17,20 +17,30 @@ export default function ProjectCard({
   githubLink: string;
 }) {
   return (
-    <div className="group/project flex flex-col relative max-w-xs md:hover:-translate-y-4 transition-transform duration-200 ease-in-out">
-      <div className="w-fit mb-2">
+    <div className="group/project relative flex max-w-xs flex-col transition-transform duration-200 ease-in-out md:hover:-translate-y-4">
+      <div className="mb-2 w-fit">
         <h4>{title}</h4>
-        <div className="h-1 w-full md:group-hover/project:w-full md:w-0 transition-all duration-500 ease-out bg-primary"></div>
+        <div className="h-1 w-full bg-primary transition-all duration-500 ease-out md:w-0 md:group-hover/project:w-full"></div>
       </div>
       <p className="lead cursor-default">{description}</p>
 
-      <div className="flex items-center gap-4 mt-4 opacity-100 md:group-hover/project:opacity-100 md:opacity-0 transition-opacity duration-300">
-        <Button asChild size="icon" variant="ghost">
+      <div className="mt-4 flex items-center gap-4 opacity-100 transition-opacity duration-300 md:opacity-0 md:group-hover/project:opacity-100">
+        <Button
+          asChild
+          size="icon"
+          variant="ghost"
+          className="hover:text-black"
+        >
           <Link target="_blank" href={githubLink}>
             <GitHubLogoIcon className="size-6" />
           </Link>
         </Button>
-        <Button asChild size="icon" variant="ghost">
+        <Button
+          asChild
+          size="icon"
+          variant="ghost"
+          className="hover:text-black"
+        >
           <Link target="_blank" href={liveLink}>
             <Link2Icon className="size-6" />
           </Link>

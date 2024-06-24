@@ -47,8 +47,8 @@
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 292 84% 61%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 176 56% 55%;
+    --primary-foreground: 182 73% 10%;
     /* --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%; */
 
@@ -58,7 +58,7 @@
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
 
-    --accent: 292 90% 60%;
+    --accent: 176 56% 55%;
     --accent-foreground: 289 100% 98%;
 
     --destructive: 0 62.8% 30.6%;
@@ -96,7 +96,7 @@
     @apply min-h-screen;
   }
   body {
-    @apply flex flex-col bg-background text-foreground min-h-screen relative font-jetBrainsMono;
+    @apply relative flex min-h-screen flex-col bg-background font-jetBrainsMono text-foreground;
   }
 
   html {

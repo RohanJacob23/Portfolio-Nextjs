@@ -32,7 +32,7 @@ export default function RootLayout({
       <body>
         <Nav />
 
-        <main className="relative flex flex-col flex-1 overflow-y-hidden">
+        <main className="relative flex flex-1 flex-col overflow-hidden">
           {children}
         </main>
       </body>

@@ -15,17 +15,17 @@ export default function Nav() {
     { id: 4, name: "Contact", href: "/contact" },
   ];
   return (
-    <nav className="flex justify-center md:justify-start gap-4 w-full p-4">
+    <nav className="flex w-full justify-center gap-4 p-4 md:justify-start">
       {navLinks.map((link) => (
         <div
           key={link.id}
-          className="relative py-1 px-2 md:py-1.5 md:px-3 rounded-full"
+          className="relative rounded-full px-2 py-1 md:px-3 md:py-1.5"
         >
           <Link
             href={link.href}
             className={cn(
-              "text-sm md:text-base relative md:font-medium transition z-20",
-              pathname === link.href ? "text-white" : "text-primary-200"
+              "relative z-20 text-sm transition md:text-base md:font-medium",
+              pathname === link.href && "text-primary-foreground",
             )}
           >
             {link.name}
@@ -36,11 +36,11 @@ export default function Nav() {
               layoutId="nav"
               transition={{
                 type: "spring",
-                bounce: 0.35,
-                duration: 0.5,
+                bounce: 0,
+                duration: 0.3,
               }}
-              style={{ borderRadius: "9999px" }}
-              className="absolute inset-0 size-full bg-primary z-10 mix-blend-difference"
+              style={{ borderRadius: 8 }}
+              className="absolute inset-0 z-10 size-full bg-primary mix-blend-difference"
             ></motion.div>
           )}
         </div>
