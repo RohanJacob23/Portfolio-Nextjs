@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 export default function MorpEffect() {
   const textList = useMemo(
-    () => ["Frontend", "Fullstack", "Nextjs", "React"],
+    () => ["Frontend", "Fullstack", "Next.js", "React.js"],
     [],
   );
   const [index, setIndex] = useState(0);
