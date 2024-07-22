@@ -31,10 +31,7 @@ export default function RootLayout({
     <html lang="en" className={cn("dark", jetBrains_Mono.variable)}>
       <body>
         <Nav />
-
-        <main className="relative flex flex-1 flex-col overflow-hidden">
-          {children}
-        </main>
+        {children}
       </body>
     </html>
   );

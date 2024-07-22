@@ -41,7 +41,7 @@ export default function Nav() {
               }}
               style={{ borderRadius: 8 }}
               className="absolute inset-0 z-10 size-full bg-primary mix-blend-difference"
-            ></motion.div>
+            />
           )}
         </div>
       ))}

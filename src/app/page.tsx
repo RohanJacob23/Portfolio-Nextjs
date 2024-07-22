@@ -8,7 +8,7 @@ import Link from "next/link";
  */
 export default function Home() {
   return (
-    <div className="flex-1 content-center space-y-4 p-4 md:p-8">
+    <div className="h-full content-center space-y-4 p-4 md:p-8">
       <h1 className="flex flex-col gap-4">
         <span>
           Hello<span className="text-primary">!</span>

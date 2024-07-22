@@ -94,12 +94,39 @@
   }
   html {
     @apply min-h-screen;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply relative flex min-h-screen flex-col bg-background font-jetBrainsMono text-foreground;
+    @apply grid min-h-dvh grid-rows-[auto_1fr] overflow-y-hidden bg-background font-jetBrainsMono text-foreground will-change-transform;
   }
 
-  html {
-    -webkit-tap-highlight-color: transparent;
+  /* Chrome, Edge and Safari */
+  *::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
+  *::-webkit-scrollbar-track {
+    border-radius: 8px;
+  }
+
+  *::-webkit-scrollbar-track:hover {
+    background-color: #b8c0c2;
+  }
+
+  *::-webkit-scrollbar-track:active {
+    background-color: #b8c0c2;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #4ccdc4;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: #3ea7a0;
+  }
+
+  *::-webkit-scrollbar-thumb:active {
+    background-color: #3ea7a0;
   }
 }
