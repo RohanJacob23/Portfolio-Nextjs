@@ -1,4 +1,4 @@
-import ProjectCard from "@/components/ProjectCard";
+import ProjectGallary from "@/components/ProjectGallary";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -76,20 +76,7 @@ export default function page() {
     <div className="h-full max-h-[calc(100dvh-64px)] space-y-4 overflow-y-auto p-4 text-xl md:max-h-[calc(100dvh-68px)] md:p-8">
       <h2 className="mb-4 border-none">Projects</h2>
 
-      <div className="grid max-w-screen-2xl grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 md:gap-x-4 xl:grid-cols-4">
-        {projects.map(
-          ({ description, id, title, liveLink, githubLink, src }) => (
-            <ProjectCard
-              key={id}
-              description={description}
-              title={title}
-              liveLink={liveLink}
-              githubLink={githubLink}
-              src={src}
-            />
-          ),
-        )}
-      </div>
+      <ProjectGallary projects={projects} />
     </div>
   );
 }

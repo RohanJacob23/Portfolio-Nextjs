@@ -1,50 +1,51 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React, { useEffect } from "react";
+import { motion, MotionConfig } from "framer-motion";
 import Image from "next/image";
-import CardDialog from "./animation/CardDialog";
+import { Project } from "./ProjectGallary";
 
 export default function ProjectCard({
-  title,
-  description,
-  liveLink,
-  githubLink,
-  src,
+  project,
+  setShowDialog,
+  setActiveProject,
 }: {
-  title: string;
-  description: string;
-  liveLink: string;
-  githubLink: string;
-  src: string;
+  project: Project;
+  setShowDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  setActiveProject: React.Dispatch<React.SetStateAction<Project | undefined>>;
 }) {
-  const [showDialog, setShowDialog] = useState(false);
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
+        setActiveProject(undefined);
         setShowDialog(false);
       }
     }
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [setShowDialog, setActiveProject]);
 
   return (
-    <>
-      <section onClick={() => setShowDialog(true)}>
+    <MotionConfig transition={{ bounce: 0.4, duration: 0.75, type: "spring" }}>
+      <section
+        onClick={() => {
+          setActiveProject(project);
+          setShowDialog(true);
+        }}
+      >
         <motion.div
           style={{ borderRadius: 8 }}
-          layoutId={`card-${title}`}
+          layoutId={`card-${project.title}`}
           className="flex h-full cursor-pointer flex-col gap-2 border"
         >
           <motion.div
-            layoutId={`card-image-${title}`}
+            layoutId={`card-image-${project.title}`}
             className="relative overflow-hidden p-2 pb-0"
             style={{ borderRadius: 8 }}
           >
             <Image
-              src={src}
+              src={project.src}
               alt="placeholder"
               width={1920}
               height={980}
@@ -52,40 +53,14 @@ export default function ProjectCard({
             />
           </motion.div>
           {/* card header */}
-          <motion.h3
-            layoutId={`title-${title}`}
-            className="border-0 p-4 underline decoration-primary"
+          <motion.h2
+            layoutId={`title-${project.title}`}
+            className="scroll-m-20 border-0 p-4 text-2xl font-semibold tracking-tight underline decoration-primary"
           >
-            {title}
-          </motion.h3>
+            {project.title}
+          </motion.h2>
         </motion.div>
-
-        {/* card modal */}
-        <AnimatePresence>
-          {showDialog && (
-            <CardDialog
-              title={title}
-              src={src}
-              description={description}
-              liveLink={liveLink}
-              githubLink={githubLink}
-              setShowDialog={setShowDialog}
-            />
-          )}
-        </AnimatePresence>
       </section>
-
-      <AnimatePresence>
-        {showDialog && (
-          <motion.div
-            key={`title-overlay-${title}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="absolute inset-0 z-40 size-full bg-black/90"
-          />
-        )}
-      </AnimatePresence>
-    </>
+    </MotionConfig>
   );
 }
