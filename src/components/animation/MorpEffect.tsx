@@ -20,12 +20,12 @@ export default function MorpEffect() {
 
   return (
     <>
-      <h2 className="border-none">
+      <h3 className="border-none">
         A freelance{" "}
         <MorphText className="text-primary">{textList[index]}</MorphText>{" "}
         developer from{" "}
         <span className="underline decoration-primary">India</span>.
-      </h2>
+      </h3>
     </>
   );
 }
@@ -51,7 +51,7 @@ const MorphText = ({
 
   const textToDisplay = generateKeys(children as string);
   return (
-    <span className="mr-32 text-nowrap md:mr-0">
+    <span className="text-nowrap">
       <AnimatePresence mode="popLayout">
         {textToDisplay.map(({ char, key }) => (
           <motion.span

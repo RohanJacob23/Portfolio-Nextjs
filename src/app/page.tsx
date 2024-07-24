@@ -1,7 +1,6 @@
 import MorpEffect from "@/components/animation/MorpEffect";
 import TextEffect from "@/components/animation/TextEffect";
 import Image from "next/image";
-import Link from "next/link";
 
 /**
  * Renders the Home component.
