@@ -20,7 +20,7 @@ export default function MorpEffect() {
 
   return (
     <>
-      <h3 className="border-none">
+      <h3 className="relative overflow-hidden border-none">
         A freelance{" "}
         <MorphText className="text-primary">{textList[index]}</MorphText>{" "}
         developer from{" "}
@@ -58,17 +58,13 @@ const MorphText = ({
             key={key}
             layoutId={key}
             className={cn("inline-block text-inherit", className)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: -25, filter: "blur(4px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: 25, filter: "blur(4px)" }}
             transition={{
-              duration: 0.25,
+              duration: 0.5,
               type: "spring",
               bounce: 0,
-              opacity: {
-                duration: 0.35,
-                type: "tween",
-              },
             }}
           >
             {char}
