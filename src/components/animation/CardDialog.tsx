@@ -32,7 +32,6 @@ export default function CardDialog({
         <motion.div
           layoutId={`card-${title}`}
           style={{ borderRadius: 8 }}
-          animate={{ boxShadow: "0px 0px 18px 8px rgba(76, 205, 196, 0.25)" }}
           className="relative z-50 size-fit max-w-screen-sm overflow-hidden border bg-card sm:w-1/2"
         >
           {/* close icon */}

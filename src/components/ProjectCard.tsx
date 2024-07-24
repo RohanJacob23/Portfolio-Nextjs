@@ -35,7 +35,7 @@ export default function ProjectCard({
         }}
       >
         <motion.div
-          style={{ boxShadow: "none", borderRadius: 8 }}
+          style={{ borderRadius: 8 }}
           layoutId={`card-${project.title}`}
           className="flex h-full cursor-pointer flex-col gap-2 border bg-zinc-900"
         >

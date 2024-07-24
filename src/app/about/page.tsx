@@ -1,3 +1,4 @@
+import TextEffect from "@/components/animation/TextEffect";
 import type { Metadata } from "next";
 import React from "react";
 
@@ -12,13 +13,13 @@ export default function page() {
     <div className="max-h-[calc(100dvh-64px)] max-w-screen-lg space-y-4 overflow-y-auto p-4 text-xl text-muted-foreground md:max-h-[calc(100dvh-68px)] md:p-8">
       <p>
         I&apos;m{" "}
-        <span className="font-medium text-foreground underline decoration-primary underline-offset-2">
+        <TextEffect className="font-medium text-foreground underline decoration-primary underline-offset-2">
           Rohan Koshy Jacob
-        </span>
+        </TextEffect>
         , a highly motivated and results-oriented{" "}
-        <span className="font-medium text-foreground underline decoration-primary underline-offset-2">
+        <TextEffect className="font-medium text-foreground underline decoration-primary underline-offset-2">
           web developer
-        </span>{" "}
+        </TextEffect>{" "}
         with a strong foundation in both front-end and back-end development.
       </p>
       <p>
@@ -26,9 +27,9 @@ export default function page() {
         {skills.map((skill, i) => (
           <React.Fragment key={i}>
             {i === skills.length - 1 ? " and " : " "}
-            <span className="font-medium text-foreground underline decoration-primary underline-offset-2">
+            <TextEffect className="font-medium text-foreground underline decoration-primary underline-offset-2">
               {skill}
-            </span>
+            </TextEffect>
             {i !== skills.length - 1 && ","}
           </React.Fragment>
         ))}
@@ -38,9 +39,9 @@ export default function page() {
       </p>
       <p>
         I&apos;m passionate about creating impactful{" "}
-        <span className="font-medium text-foreground underline decoration-primary underline-offset-2">
+        <TextEffect className="font-medium text-foreground underline decoration-primary underline-offset-2">
           web applications
-        </span>{" "}
+        </TextEffect>{" "}
         and seek an opportunity to learn and grow alongside experienced
         developers.
       </p>
