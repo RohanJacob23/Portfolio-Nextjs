@@ -27,7 +27,7 @@ export default function ProjectCard({
   }, [setShowDialog, setActiveProject]);
 
   return (
-    <MotionConfig transition={{ bounce: 0.4, duration: 0.75, type: "spring" }}>
+    <MotionConfig transition={{ bounce: 0, duration: 0.5, type: "spring" }}>
       <section
         onClick={() => {
           setActiveProject(project);
@@ -35,9 +35,9 @@ export default function ProjectCard({
         }}
       >
         <motion.div
-          style={{ borderRadius: 8 }}
+          style={{ boxShadow: "none", borderRadius: 8 }}
           layoutId={`card-${project.title}`}
-          className="flex h-full cursor-pointer flex-col gap-2 border"
+          className="flex h-full cursor-pointer flex-col gap-2 border bg-zinc-900"
         >
           <motion.div
             layoutId={`card-image-${project.title}`}
@@ -55,7 +55,8 @@ export default function ProjectCard({
           {/* card header */}
           <motion.h2
             layoutId={`title-${project.title}`}
-            className="scroll-m-20 border-0 p-4 text-2xl font-semibold tracking-tight underline decoration-primary"
+            layout="position"
+            className="border-none p-4 underline decoration-primary"
           >
             {project.title}
           </motion.h2>

@@ -52,7 +52,7 @@ export default function ProjectGallary({ projects }: { projects: Project[] }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-40 size-full bg-black/90"
+            className="absolute inset-0 z-40 size-full bg-black/95"
           />
         )}
       </AnimatePresence>
