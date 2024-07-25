@@ -13,13 +13,17 @@ export default function page() {
     <div className="max-h-[calc(100dvh-64px)] max-w-screen-lg space-y-4 overflow-y-auto p-4 text-xl text-muted-foreground md:max-h-[calc(100dvh-68px)] md:p-8">
       <p>
         I&apos;m{" "}
-        <TextEffect className="font-medium text-foreground underline decoration-primary underline-offset-2">
-          Rohan Koshy Jacob
-        </TextEffect>
+        <span className="inline-flex overflow-hidden">
+          <TextEffect className="font-medium text-primary">
+            Rohan Koshy Jacob
+          </TextEffect>
+        </span>
         , a highly motivated and results-oriented{" "}
-        <TextEffect className="font-medium text-foreground underline decoration-primary underline-offset-2">
-          web developer
-        </TextEffect>{" "}
+        <span className="inline-flex overflow-hidden">
+          <TextEffect className="font-medium text-primary">
+            web developer
+          </TextEffect>
+        </span>{" "}
         with a strong foundation in both front-end and back-end development.
       </p>
       <p>
@@ -27,9 +31,11 @@ export default function page() {
         {skills.map((skill, i) => (
           <React.Fragment key={i}>
             {i === skills.length - 1 ? " and " : " "}
-            <TextEffect className="font-medium text-foreground underline decoration-primary underline-offset-2">
-              {skill}
-            </TextEffect>
+            <span className="inline-flex overflow-hidden">
+              <TextEffect className="font-medium text-primary">
+                {skill}
+              </TextEffect>
+            </span>
             {i !== skills.length - 1 && ","}
           </React.Fragment>
         ))}
@@ -39,9 +45,11 @@ export default function page() {
       </p>
       <p>
         I&apos;m passionate about creating impactful{" "}
-        <TextEffect className="font-medium text-foreground underline decoration-primary underline-offset-2">
-          web applications
-        </TextEffect>{" "}
+        <span className="inline-flex overflow-hidden">
+          <TextEffect className="font-medium text-primary">
+            web applications
+          </TextEffect>
+        </span>{" "}
         and seek an opportunity to learn and grow alongside experienced
         developers.
       </p>
