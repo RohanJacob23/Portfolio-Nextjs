@@ -44,6 +44,11 @@ export default function Home() {
       name: "Tailwindcss",
       img: "/skills/tailwindcssLogo.png",
     },
+    {
+      id: 8,
+      name: "Framer Motion",
+      img: "/skills/framer-motion.svg",
+    },
   ];
 
   return (
@@ -64,7 +69,7 @@ export default function Home() {
         {Array.from({ length: 2 }, (_, index) => (
           <div
             key={index}
-            className="animate-marquee flex justify-center gap-4 group-hover/marquee:paused"
+            className="flex animate-marquee justify-center gap-4 group-hover/marquee:paused"
           >
             {skillList.map(({ id, name, img }) => (
               <div

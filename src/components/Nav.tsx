@@ -39,6 +39,7 @@ export default function Nav() {
         style.width = `${targetRect.width}px`;
         style.height = `${targetRect.height}px`;
         style.transform = `translate(${targetRect.left - navRect.left}px, ${targetRect.top - navRect.top}px)`;
+        style.transitionDuration = "300ms";
       }
     },
     [],
@@ -52,6 +53,7 @@ export default function Nav() {
       style.width = `${activeElement.offsetWidth}px`;
       style.height = `${activeElement.offsetHeight}px`;
       style.transform = `translate(${activeElement.offsetLeft}px, ${activeElement.offsetTop}px)`;
+      style.transitionDuration = "0s";
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -71,7 +73,7 @@ export default function Nav() {
         >
           <span
             className={cn(
-              "transition-color relative z-20 text-sm duration-300 ease-in-out md:text-base md:font-medium",
+              "transition-color relative z-20 text-sm text-foreground delay-150 duration-300 ease-in-out md:text-base md:font-medium",
               activeLink === link.href && "text-primary-foreground",
             )}
           >
@@ -81,7 +83,7 @@ export default function Nav() {
       ))}
       <div
         ref={highlightRef}
-        className="absolute inset-0 size-0 rounded-lg bg-primary opacity-0 transition-all duration-300 ease-in-out"
+        className="absolute inset-0 h-8 w-0 rounded-lg bg-primary opacity-0 transition-all duration-300 ease-in-out md:h-9"
       />
     </nav>
   );
