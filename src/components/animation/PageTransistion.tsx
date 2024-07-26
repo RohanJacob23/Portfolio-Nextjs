@@ -10,8 +10,8 @@ export default function PageTransistion({
 }) {
   return (
     <motion.main
-      initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
         type: "spring",
         bounce: 0.5,

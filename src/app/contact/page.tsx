@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import {
   EnvelopeClosedIcon,
   GitHubLogoIcon,
@@ -8,6 +6,7 @@ import {
 } from "@radix-ui/react-icons";
 import type { Metadata } from "next";
 import Image from "next/image";
+import SocialGrid from "@/components/animation/SocialGrid";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -53,21 +52,7 @@ export default function page() {
   return (
     <div className="flex-1 space-y-4 p-4 text-xl md:p-8">
       {/* social links */}
-      <div className="flex flex-col items-start gap-4">
-        {socialLinks.map(({ href, icon, name }, i) => (
-          <Button
-            key={i}
-            variant="link"
-            asChild
-            className="gap-2 pl-0 text-xl text-white decoration-primary"
-          >
-            <Link href={href} target="_blank">
-              {icon}
-              {name}
-            </Link>
-          </Button>
-        ))}
-      </div>
+      <SocialGrid socialLinks={socialLinks} />
     </div>
   );
 }

@@ -2,14 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { cn } from "@/lib/utils";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 
 export default function Nav() {
   const links = useMemo(
@@ -21,70 +15,120 @@ export default function Nav() {
     ],
     [],
   );
+
+  const [position, setPosition] = useState({
+    x: 0,
+    y: 0,
+    width: 0,
+    opacity: 1,
+  });
+
   const pathname = usePathname();
-  const [activeLink, setActiveLink] = useState(pathname);
-  const highlightRef = useRef<HTMLDivElement>(null);
-  const navRef = useRef<HTMLDivElement>(null);
 
-  const handleClick = useCallback(
-    (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-      setActiveLink(href);
-
-      const targetRect = event.currentTarget.getBoundingClientRect();
-      const navRect = navRef.current?.getBoundingClientRect();
-
-      if (highlightRef.current && navRect) {
-        const { style } = highlightRef.current;
-        style.opacity = "1";
-        style.width = `${targetRect.width}px`;
-        style.height = `${targetRect.height}px`;
-        style.transform = `translate(${targetRect.left - navRect.left}px, ${targetRect.top - navRect.top}px)`;
-        style.transitionDuration = "300ms";
-      }
-    },
-    [],
-  );
+  const [activeTab, setActiveTab] = useState(pathname);
 
   useEffect(() => {
-    const activeElement = document.getElementById(activeLink);
-    if (highlightRef.current && activeElement) {
-      const { style } = highlightRef.current;
-      style.opacity = "1";
-      style.width = `${activeElement.offsetWidth}px`;
-      style.height = `${activeElement.offsetHeight}px`;
-      style.transform = `translate(${activeElement.offsetLeft}px, ${activeElement.offsetTop}px)`;
-      style.transitionDuration = "0s";
+    const tab = document.getElementById(pathname);
+
+    if (tab) {
+      const rect = tab.getBoundingClientRect();
+      setPosition({
+        x: rect.left,
+        y: rect.top,
+        width: rect.width,
+        opacity: 1,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <nav
-      ref={navRef}
-      className="relative flex w-full justify-center gap-4 p-4 md:justify-start"
-    >
-      {links.map((link) => (
-        <Link
-          key={link.id}
-          id={link.href}
-          href={link.href}
-          className="block rounded-lg px-2 py-1 md:px-3 md:py-1.5"
-          onClick={(event) => handleClick(event, link.href)}
-        >
-          <span
-            className={cn(
-              "transition-color relative z-20 text-sm text-foreground delay-150 duration-300 ease-in-out md:text-base md:font-medium",
-              activeLink === link.href && "text-primary-foreground",
-            )}
+    <nav className="relative z-20 p-4">
+      <ul className="flex w-full justify-center gap-4 md:justify-start">
+        {links.map((link) => (
+          <Tab
+            setPosition={setPosition}
+            href={link.href}
+            key={link.id}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
           >
             {link.name}
-          </span>
-        </Link>
-      ))}
-      <div
-        ref={highlightRef}
-        className="absolute inset-0 h-8 w-0 rounded-lg bg-primary opacity-0 transition-all duration-300 ease-in-out md:h-9"
-      />
+          </Tab>
+        ))}
+      </ul>
+      <NavBadge {...position} />
     </nav>
   );
 }
+
+const NavBadge = ({
+  ...position
+}: {
+  x: number;
+  y: number;
+  width: number;
+  opacity: number;
+}) => {
+  return (
+    <LazyMotion features={domAnimation}>
+      <m.div
+        initial={false}
+        animate={position}
+        transition={{ type: "spring", duration: 0.35, bounce: 0 }}
+        className="w -0 absolute inset-0 z-20 h-8 rounded-lg bg-primary opacity-100 md:h-10"
+      />
+    </LazyMotion>
+  );
+};
+
+const Tab = ({
+  children,
+  href,
+  setPosition,
+  activeTab,
+  setActiveTab,
+}: {
+  children: string;
+  href: string;
+  activeTab: string;
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+  setPosition: React.Dispatch<
+    React.SetStateAction<{
+      x: number;
+      y: number;
+      width: number;
+      opacity: number;
+    }>
+  >;
+}) => {
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
+      setActiveTab(href);
+
+      const targetRect = event.currentTarget.getBoundingClientRect();
+
+      setPosition({
+        x: targetRect.left,
+        y: targetRect.top,
+        width: targetRect.width,
+        opacity: 1,
+      });
+    },
+    [setPosition, setActiveTab],
+  );
+
+  return (
+    <li>
+      <Link
+        id={href}
+        href={href}
+        onClick={(e) => handleClick(e, href)}
+        data-active={activeTab === href}
+        className="relative z-40 inline-block rounded-lg px-2 py-1 text-base text-foreground transition-colors duration-300 ease-in-out data-[active=true]:text-primary-foreground md:px-3 md:py-1.5 md:text-xl md:font-medium"
+      >
+        {children}
+      </Link>
+    </li>
+  );
+};
