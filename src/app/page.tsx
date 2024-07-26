@@ -67,29 +67,55 @@ export default function Home() {
       {/* marquee */}
       <div className="group/marquee relative flex h-fit max-w-screen-md space-x-4 overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
         {Array.from({ length: 2 }, (_, index) => (
-          <div
-            key={index}
-            className="flex animate-marquee justify-center gap-4 group-hover/marquee:paused"
-          >
-            {skillList.map(({ id, name, img }) => (
-              <div
-                key={id}
-                className="flex flex-col items-center gap-2 rounded-full border bg-zinc-900 p-2.5 grayscale transition-[filter] duration-500 ease-in-out hover:grayscale-0"
-              >
-                <div className="relative size-12 md:size-16">
-                  <Image
-                    src={img}
-                    width={200}
-                    height={200}
-                    alt={name}
-                    className="aspect-square size-full rounded-lg"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
+          <MarqueeList key={index} skillList={skillList} />
         ))}
       </div>
     </div>
   );
 }
+
+const MarqueeList = ({
+  skillList,
+}: {
+  skillList: {
+    id: number;
+    name: string;
+    img: string;
+  }[];
+}) => {
+  return (
+    <div className="flex animate-marquee justify-center gap-4 group-hover/marquee:paused">
+      {skillList.map(({ id, name, img }) => (
+        <SkillCard key={id} name={name} img={img} />
+      ))}
+    </div>
+  );
+};
+
+const SkillCard = ({ img, name }: { img: string; name: string }) => {
+  return (
+    <div className="group/skill relative rounded-full border bg-zinc-900 p-2.5">
+      <div className="relative size-12 md:size-16">
+        <Image
+          src={img}
+          width={200}
+          height={200}
+          alt={name}
+          className="aspect-square size-full rounded-lg grayscale"
+        />
+      </div>
+
+      <div className="absolute inset-0 size-full rounded-full p-2.5 transition-all duration-500 ease-in-out [clip-path:circle(0%_at_50%_50%)] group-hover/skill:[clip-path:circle(50%_at_50%_50%)]">
+        <div className="relative size-12 md:size-16">
+          <Image
+            src={img}
+            width={200}
+            height={200}
+            alt={name}
+            className="aspect-square size-full rounded-lg"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
