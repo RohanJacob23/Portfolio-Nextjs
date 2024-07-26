@@ -43,8 +43,8 @@ export default function Nav() {
   }, []);
 
   return (
-    <nav className="relative z-20 p-4">
-      <ul className="flex w-full justify-center gap-4 md:justify-start">
+    <nav className="relative z-20">
+      <ul className="flex w-full justify-center gap-2 px-2 py-4 md:justify-start md:gap-4 md:p-4">
         {links.map((link) => (
           <Tab
             setPosition={setPosition}
