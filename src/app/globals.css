@@ -97,7 +97,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply grid min-h-dvh grid-rows-[auto_1fr] overflow-y-hidden bg-background font-jetBrainsMono text-foreground will-change-transform;
+    @apply grid min-h-dvh grid-rows-[auto_1fr] overflow-hidden bg-background font-jetBrainsMono text-foreground will-change-transform;
   }
 
   /* Chrome, Edge and Safari */

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { domAnimation, LazyMotion, m } from "framer-motion";
+import TransitionLink from "./animation/TransitionLink";
 
 export default function Nav() {
   const links = useMemo(
@@ -103,7 +104,7 @@ const Tab = ({
   >;
 }) => {
   const handleClick = useCallback(
-    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
+    (event: React.MouseEvent<HTMLLIElement, MouseEvent>, href: string) => {
       setActiveTab(href);
 
       const targetRect = event.currentTarget.getBoundingClientRect();
@@ -119,16 +120,15 @@ const Tab = ({
   );
 
   return (
-    <li>
-      <Link
+    <li onClick={(e) => handleClick(e, href)}>
+      <TransitionLink
         id={href}
         href={href}
-        onClick={(e) => handleClick(e, href)}
         data-active={activeTab === href}
         className="relative z-40 inline-block px-2 py-1 text-base text-foreground transition-colors duration-300 ease-in-out data-[active=true]:text-primary-foreground md:px-3 md:py-1.5 md:text-xl md:font-medium"
       >
         {children}
-      </Link>
+      </TransitionLink>
     </li>
   );
 };
