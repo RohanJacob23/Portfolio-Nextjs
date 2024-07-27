@@ -3,14 +3,8 @@
 import Image from "next/image";
 import MorpEffect from "./animation/MorpEffect";
 import TextEffect from "./animation/TextEffect";
-import {
-  motion,
-  MotionValue,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { ArrowDownIcon } from "@radix-ui/react-icons";
 
 export default function Home() {
@@ -58,9 +52,7 @@ export default function Home() {
   ];
 
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    container: sectionRef,
-  });
+  const { scrollYProgress } = useScroll({ container: sectionRef });
 
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -10]);
@@ -68,10 +60,8 @@ export default function Home() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex h-full flex-col overflow-y-auto overflow-x-hidden bg-zinc-800"
+      className="relative flex h-full flex-col overflow-y-auto overflow-x-hidden scroll-smooth bg-zinc-800"
     >
-      {/* <div className="h-full max-h-[calc(100dvh-64px)] content-center space-y-4 p-4 md:max-h-[calc(100dvh-68px)] md:p-8"> */}
-
       <motion.div
         style={{ scale, rotate }}
         className="sticky top-0 z-10 flex-[1_0_100%] content-center space-y-4 bg-background p-4 md:p-8"
@@ -94,10 +84,7 @@ export default function Home() {
           ))}
         </div>
 
-        <p className="absolute bottom-24 left-1/2 inline-flex size-fit -translate-x-1/2 items-center gap-2 rounded-full border px-4 py-2 text-muted-foreground">
-          Scroll Down
-          <ArrowDownIcon className="inline-block h-5 w-5 animate-bounce text-foreground" />
-        </p>
+        <ScrollDownBadge />
       </motion.div>
 
       <SkillSection scrollYProgress={scrollYProgress} />
@@ -150,13 +137,28 @@ const SkillSection = ({
 }) => {
   const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
   const rotate = useTransform(scrollYProgress, [0, 1], [10, 0]);
+  const backgroundColor = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["#18181b", "#09090b"],
+  );
+  const y = useTransform(scrollYProgress, [0, 0.05], [50, 0]);
   return (
     <motion.div
-      style={{ scale, rotate }}
-      className="z-20 flex-[1_0_100%] content-center space-y-4 bg-zinc-900 p-4 md:p-8"
+      style={{ scale, rotate, backgroundColor, y }}
+      className="z-20 flex-[1_0_100%] content-center space-y-4 p-4 md:p-8"
     >
       <h1 className="text-muted-foreground">Comming Soon...</h1>
     </motion.div>
+  );
+};
+
+const ScrollDownBadge = () => {
+  return (
+    <p className="absolute bottom-12 left-1/2 inline-flex size-fit -translate-x-1/2 items-center gap-2 rounded-full border border-primary px-4 py-1.5 text-muted-foreground md:bottom-24 md:py-2">
+      Scroll Down
+      <ArrowDownIcon className="inline-block h-5 w-5 animate-bounce text-foreground" />
+    </p>
   );
 };
 
