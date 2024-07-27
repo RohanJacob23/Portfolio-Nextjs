@@ -35,14 +35,12 @@ export default function ProjectCard({
         }}
       >
         <motion.div
-          style={{ borderRadius: 8 }}
           layoutId={`card-${project.title}`}
           className="flex h-full cursor-pointer flex-col gap-2 border bg-zinc-900"
         >
           <motion.div
             layoutId={`card-image-${project.title}`}
             className="relative overflow-hidden p-2 pb-0"
-            style={{ borderRadius: 8 }}
           >
             <Image
               src={project.src}

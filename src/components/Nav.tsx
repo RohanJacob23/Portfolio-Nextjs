@@ -76,7 +76,7 @@ const NavBadge = ({
         initial={false}
         animate={position}
         transition={{ type: "spring", duration: 0.35, bounce: 0 }}
-        className="w -0 absolute inset-0 z-20 h-8 rounded-lg bg-primary opacity-100 md:h-10"
+        className="w -0 absolute inset-0 z-20 h-8 bg-primary opacity-100 md:h-10"
       />
     </LazyMotion>
   );
@@ -125,7 +125,7 @@ const Tab = ({
         href={href}
         onClick={(e) => handleClick(e, href)}
         data-active={activeTab === href}
-        className="relative z-40 inline-block rounded-lg px-2 py-1 text-base text-foreground transition-colors duration-300 ease-in-out data-[active=true]:text-primary-foreground md:px-3 md:py-1.5 md:text-xl md:font-medium"
+        className="relative z-40 inline-block px-2 py-1 text-base text-foreground transition-colors duration-300 ease-in-out data-[active=true]:text-primary-foreground md:px-3 md:py-1.5 md:text-xl md:font-medium"
       >
         {children}
       </Link>

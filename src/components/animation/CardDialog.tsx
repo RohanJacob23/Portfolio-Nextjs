@@ -27,11 +27,10 @@ export default function CardDialog({
     <MotionConfig transition={{ bounce: 0, duration: 0.5, type: "spring" }}>
       <section
         key={title}
-        className="absolute inset-0 z-50 grid size-full p-4 md:place-items-center"
+        className="absolute inset-0 z-50 grid size-full place-items-center p-4 md:place-items-center"
       >
         <motion.div
           layoutId={`card-${title}`}
-          style={{ borderRadius: 8 }}
           className="relative z-50 size-fit max-w-screen-sm overflow-hidden border bg-card sm:w-1/2"
         >
           {/* close icon */}
