@@ -34,8 +34,6 @@ export default function TransitionLink({
     );
     await sleep(500);
     router.push(href);
-    // await sleep(1000);
-    // animate("main", { x: "0%" }, { type: "spring", bounce: 0, duration: 1 });
   };
   return (
     <Link onClick={handleClick} href={href} {...props}>
