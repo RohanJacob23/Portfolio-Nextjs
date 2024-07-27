@@ -11,6 +11,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { useEffect, useRef } from "react";
+import { ArrowDownIcon } from "@radix-ui/react-icons";
 
 export default function Home() {
   const skillList = [
@@ -93,7 +94,10 @@ export default function Home() {
           ))}
         </div>
 
-        {/* languages I know */}
+        <p className="absolute bottom-24 left-1/2 inline-flex size-fit -translate-x-1/2 items-center gap-2 rounded-full border px-4 py-2 text-muted-foreground">
+          Scroll Down
+          <ArrowDownIcon className="inline-block h-5 w-5 animate-bounce text-foreground" />
+        </p>
       </motion.div>
 
       <SkillSection scrollYProgress={scrollYProgress} />
