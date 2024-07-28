@@ -73,7 +73,7 @@ export default function page() {
     },
   ];
   return (
-    <div className="h-full max-h-[calc(100dvh-64px)] overflow-y-auto p-4 text-xl md:max-h-[calc(100dvh-68px)] md:p-8">
+    <div className="h-full max-h-[calc(100dvh-64.8px)] overflow-y-auto p-4 text-xl md:max-h-[calc(100dvh-72.8px)] md:p-8">
       <h2 className="mb-4 border-none">Projects</h2>
 
       <ProjectGallary projects={projects} />

@@ -3,9 +3,18 @@
 import Image from "next/image";
 import MorpEffect from "./animation/MorpEffect";
 import TextEffect from "./animation/TextEffect";
-import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  MotionValue,
+  useAnimate,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+  ValueAnimationTransition,
+} from "framer-motion";
 import { useRef } from "react";
 import { ArrowDownIcon } from "@radix-ui/react-icons";
+import { Card, CardHeader, CardTitle } from "./ui/card";
 
 export default function Home() {
   const skillList = [
@@ -51,20 +60,48 @@ export default function Home() {
     },
   ];
 
+  const frontend = [
+    "HTML",
+    "CSS",
+    "Javascript",
+    "Typescript",
+    "React.js",
+    "Next.js",
+    "Tailwindcss",
+  ];
+  const backend = ["Typescript", "Node.js", "Express.js", "MongoDB"];
+  const other = [
+    "Git",
+    "Github",
+    "VS Code",
+    "Figma",
+    "Tailwindcss",
+    "Framer Motion",
+  ];
+
   const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ container: sectionRef });
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+  });
 
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
   const rotate = useTransform(scrollYProgress, [0, 1], [0, -10]);
 
+  const backgroundColor = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["#09090b", "#27272a"],
+  );
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    console.log(latest);
+  });
+
   return (
-    <section
-      ref={sectionRef}
-      className="relative flex h-full flex-col overflow-y-auto overflow-x-hidden scroll-smooth bg-zinc-800"
-    >
+    <section ref={sectionRef} className="relative flex h-full flex-col">
       <motion.div
-        style={{ scale, rotate }}
-        className="sticky top-0 z-10 flex-[1_0_100%] content-center space-y-4 bg-background p-4 md:p-8"
+        style={{ scale, rotate, backgroundColor }}
+        className="sticky top-16 z-10 h-[calc(100dvh-64.8px)] content-center space-y-4 bg-background p-4 md:h-[calc(100dvh-72.8px)] md:p-8"
       >
         <h1 className="flex flex-col gap-4">
           <span>
@@ -87,7 +124,12 @@ export default function Home() {
         <ScrollDownBadge />
       </motion.div>
 
-      <SkillSection scrollYProgress={scrollYProgress} />
+      <SkillSection
+        scrollYProgress={scrollYProgress}
+        frontend={frontend}
+        backend={backend}
+        other={other}
+      />
     </section>
   );
 }
@@ -131,12 +173,18 @@ const SkillCard = ({ img, name }: { img: string; name: string }) => {
 };
 
 const SkillSection = ({
+  backend,
+  frontend,
+  other,
   scrollYProgress,
 }: {
   scrollYProgress: MotionValue<number>;
+  frontend: string[];
+  backend: string[];
+  other: string[];
 }) => {
   const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [10, 0]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [-10, 0]);
   const backgroundColor = useTransform(
     scrollYProgress,
     [0, 1],
@@ -146,10 +194,93 @@ const SkillSection = ({
   return (
     <motion.div
       style={{ scale, rotate, backgroundColor, y }}
-      className="z-20 flex-[1_0_100%] content-center space-y-4 p-4 md:p-8"
+      className="no-scrollbar sticky top-0 z-20 h-dvh space-y-4 overflow-y-auto p-4 pt-20 md:p-8 md:pt-24"
     >
-      <h1 className="text-muted-foreground">Comming Soon...</h1>
+      <h1 className="">
+        Tools I use<span className="text-primary">...</span>
+      </h1>
+
+      <h2>Frontend</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3">
+        {frontend.map((name, i) => (
+          <ToolCard key={i} name={name} />
+        ))}
+      </div>
+
+      <h2>Backend</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3">
+        {backend.map((name, i) => (
+          <ToolCard key={i} name={name} />
+        ))}
+      </div>
+
+      <h2>Other</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3">
+        {other.map((name, i) => (
+          <ToolCard key={i} name={name} />
+        ))}
+      </div>
     </motion.div>
+  );
+};
+
+const ToolCard = ({ name }: { name: string }) => {
+  const OPEN = "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)";
+  const CLOSE = "polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%)";
+
+  const [cardRef, animateCard] = useAnimate();
+
+  const transitionOptions: ValueAnimationTransition = {
+    type: "spring",
+    duration: 0.65,
+    bounce: 0,
+  };
+
+  const handleMouseEnter = () => {
+    animateCard(
+      cardRef.current,
+      {
+        clipPath: OPEN,
+      },
+      transitionOptions,
+    );
+  };
+  const handleMouseLeave = () => {
+    animateCard(
+      cardRef.current,
+      {
+        clipPath: CLOSE,
+      },
+      transitionOptions,
+    );
+  };
+
+  return (
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="relative"
+    >
+      <Card className="rounded-none bg-primary text-center text-black">
+        <CardHeader className="p-2 md:p-4">
+          <CardTitle className="text-xl md:text-2xl">{name}</CardTitle>
+        </CardHeader>
+      </Card>
+
+      <div
+        ref={cardRef}
+        style={{
+          clipPath: CLOSE,
+        }}
+        className="absolute inset-0 size-full"
+      >
+        <Card className="rounded-none text-center text-primary">
+          <CardHeader className="p-2 md:p-4">
+            <CardTitle className="text-xl md:text-2xl">{name}</CardTitle>
+          </CardHeader>
+        </Card>
+      </div>
+    </div>
   );
 };
 

@@ -2,7 +2,7 @@
 
 import { animate } from "framer-motion";
 import Link, { LinkProps } from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 interface TransitionLinkProps extends LinkProps {
@@ -22,11 +22,15 @@ export default function TransitionLink({
   ...props
 }: TransitionLinkProps) {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleClick = async (
     event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
   ) => {
     event.preventDefault();
+    if (pathname === href) {
+      return;
+    }
     animate(
       "main",
       { x: "100%", opacity: 0 },

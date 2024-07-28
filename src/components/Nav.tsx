@@ -44,7 +44,7 @@ export default function Nav() {
   }, []);
 
   return (
-    <nav className="relative z-20">
+    <nav className="sticky top-0 z-40 border-b bg-background/75 backdrop-blur">
       <ul className="flex w-full justify-center gap-2 px-2 py-4 md:justify-start md:gap-4 md:p-4">
         {links.map((link) => (
           <Tab

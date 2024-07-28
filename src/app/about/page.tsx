@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function page() {
   const skills = ["React", "Next.js", "MongoDB", "Tailwind CSS"];
   return (
-    <div className="max-h-[calc(100dvh-64px)] max-w-screen-lg space-y-4 overflow-y-auto p-4 text-xl text-muted-foreground md:max-h-[calc(100dvh-68px)] md:p-8">
+    <div className="max-w-screen-lg space-y-4 p-4 text-xl text-muted-foreground md:p-8">
       <p>
         I&apos;m{" "}
         <span className="inline-flex overflow-hidden">
