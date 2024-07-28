@@ -3,6 +3,7 @@ import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import { cn } from "@/lib/utils";
+import SmoothScrolling from "@/components/animation/SmoothScrolling";
 
 const jetBrains_Mono = JetBrains_Mono({
   subsets: ["latin"],
@@ -30,8 +31,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn("dark", jetBrains_Mono.variable)}>
       <body>
-        <Nav />
-        {children}
+        <SmoothScrolling>
+          <Nav />
+          {children}
+        </SmoothScrolling>
       </body>
     </html>
   );

@@ -93,15 +93,11 @@ export default function Home() {
     ["#09090b", "#27272a"],
   );
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    console.log(latest);
-  });
-
   return (
-    <section ref={sectionRef} className="relative flex h-full flex-col">
+    <section ref={sectionRef} className="flex h-full flex-col">
       <motion.div
         style={{ scale, rotate, backgroundColor }}
-        className="sticky top-16 z-10 h-[calc(100dvh-64.8px)] content-center space-y-4 bg-background p-4 md:h-[calc(100dvh-72.8px)] md:p-8"
+        className="sticky top-16 z-10 h-[calc(100vh-64.8px)] content-center space-y-4 bg-background p-4 md:h-[calc(100vh-72.8px)] md:p-8"
       >
         <h1 className="flex flex-col gap-4">
           <span>
@@ -184,19 +180,44 @@ const SkillSection = ({
   other: string[];
 }) => {
   const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [-10, 0]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [10, 0]);
   const backgroundColor = useTransform(
     scrollYProgress,
     [0, 1],
     ["#18181b", "#09090b"],
   );
   const y = useTransform(scrollYProgress, [0, 0.05], [50, 0]);
+
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const setLenisPrevent = () => {
+    if (!sectionRef.current) return;
+    sectionRef.current.setAttribute("data-lenis-prevent", "true");
+    sectionRef.current.setAttribute("data-lenis-prevent-wheel", "true");
+    sectionRef.current.setAttribute("data-lenis-prevent-touch", "true");
+  };
+  const removeLenisPrevent = () => {
+    if (!sectionRef.current) return;
+    sectionRef.current.removeAttribute("data-lenis-prevent");
+    sectionRef.current.removeAttribute("data-lenis-prevent-wheel");
+    sectionRef.current.removeAttribute("data-lenis-prevent-touch");
+  };
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    latest === 1 ? setLenisPrevent() : removeLenisPrevent();
+  });
   return (
     <motion.div
-      style={{ scale, rotate, backgroundColor, y }}
-      className="no-scrollbar sticky top-0 z-20 h-dvh space-y-4 overflow-y-auto p-4 pt-20 md:p-8 md:pt-24"
+      style={{
+        scale,
+        rotate,
+        backgroundColor,
+        y,
+      }}
+      ref={sectionRef}
+      className="sticky top-0 z-20 h-dvh space-y-4 overflow-y-auto p-4 pt-20 md:p-8 md:pt-24"
     >
-      <h1 className="">
+      <h1>
         Tools I use<span className="text-primary">...</span>
       </h1>
 
@@ -261,7 +282,7 @@ const ToolCard = ({ name }: { name: string }) => {
       onMouseLeave={handleMouseLeave}
       className="relative"
     >
-      <Card className="rounded-none bg-primary text-center text-black">
+      <Card className="cursor-default rounded-none bg-primary text-center text-black">
         <CardHeader className="p-2 md:p-4">
           <CardTitle className="text-xl md:text-2xl">{name}</CardTitle>
         </CardHeader>
@@ -286,7 +307,7 @@ const ToolCard = ({ name }: { name: string }) => {
 
 const ScrollDownBadge = () => {
   return (
-    <p className="absolute bottom-12 left-1/2 inline-flex size-fit -translate-x-1/2 items-center gap-2 rounded-full border border-primary px-4 py-1.5 text-muted-foreground md:bottom-24 md:py-2">
+    <p className="absolute bottom-24 left-1/2 inline-flex size-fit -translate-x-1/2 items-center gap-2 rounded-full border border-primary px-4 py-1.5 text-muted-foreground md:py-2">
       Scroll Down
       <ArrowDownIcon className="inline-block h-5 w-5 animate-bounce text-foreground" />
     </p>

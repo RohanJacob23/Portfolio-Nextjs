@@ -97,7 +97,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply grid min-h-dvh grid-rows-[auto_1fr] bg-background font-jetBrainsMono text-foreground will-change-transform;
+    @apply grid min-h-dvh grid-rows-[auto_1fr] overflow-x-clip bg-background font-jetBrainsMono text-foreground will-change-transform;
   }
 
   /* Chrome, Edge and Safari */
@@ -138,5 +138,25 @@
   .no-scrollbar {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+  }
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
   }
 }

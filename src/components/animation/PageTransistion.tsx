@@ -17,7 +17,7 @@ export default function PageTransistion({
         bounce: 0.5,
         duration: 0.75,
       }}
-      className="w-dvw"
+      className="w-screen"
     >
       {children}
     </motion.main>
