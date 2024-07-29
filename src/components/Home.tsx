@@ -7,7 +7,6 @@ import {
   motion,
   MotionValue,
   useAnimate,
-  useMotionValueEvent,
   useScroll,
   useTransform,
   ValueAnimationTransition,
@@ -79,27 +78,23 @@ export default function Home() {
     "Framer Motion",
   ];
 
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const firstSectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
+    target: firstSectionRef,
+    offset: ["start start", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, -10]);
-
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["#09090b", "#27272a"],
-  );
+  const textY = useParallax(scrollYProgress, -100, true);
+  const textYVariant1 = useParallax(scrollYProgress, -150, true);
+  const marqueeY = useParallax(scrollYProgress, -200, true);
 
   return (
-    <section ref={sectionRef} className="flex h-full flex-col">
+    <section className="flex h-full flex-col">
       <motion.div
-        style={{ scale, rotate, backgroundColor }}
-        className="sticky top-16 z-10 h-[calc(100vh-64.8px)] content-center space-y-4 bg-background p-4 md:h-[calc(100vh-72.8px)] md:p-8"
+        ref={firstSectionRef}
+        className="z-10 min-h-dvh content-center space-y-4 bg-background p-4 md:p-8"
       >
-        <h1 className="flex flex-col gap-4">
+        <motion.h1 style={{ y: textY }} className="flex flex-col gap-4">
           <span>
             Hello<span className="text-primary">!</span>
           </span>
@@ -107,21 +102,25 @@ export default function Home() {
             I&apos;m{" "}
             <TextEffect className="text-primary">Rohan K. Jacob</TextEffect>{" "}
           </span>
-        </h1>
-        <MorpEffect />
+        </motion.h1>
+
+        <MorpEffect y={textYVariant1} />
 
         {/* marquee */}
-        <div className="group/marquee relative flex h-fit max-w-screen-md space-x-4 overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
+        <motion.div
+          style={{ y: marqueeY }}
+          className="group/marquee relative flex h-fit max-w-screen-md space-x-4 overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]"
+        >
           {Array.from({ length: 2 }, (_, index) => (
             <MarqueeList key={index} skillList={skillList} />
           ))}
-        </div>
+        </motion.div>
 
         <ScrollDownBadge />
       </motion.div>
 
       <SkillSection
-        scrollYProgress={scrollYProgress}
+        // scrollYProgress={scrollYProgress}
         frontend={frontend}
         backend={backend}
         other={other}
@@ -172,80 +171,63 @@ const SkillSection = ({
   backend,
   frontend,
   other,
-  scrollYProgress,
 }: {
-  scrollYProgress: MotionValue<number>;
   frontend: string[];
   backend: string[];
   other: string[];
 }) => {
-  const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [10, 0]);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "start 0.1"],
+  });
+
   const backgroundColor = useTransform(
     scrollYProgress,
     [0, 1],
     ["#18181b", "#09090b"],
   );
-  const y = useTransform(scrollYProgress, [0, 0.05], [50, 0]);
 
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const textY = useParallax(scrollYProgress, 200);
+  const textYVariant1 = useParallax(scrollYProgress, 200);
+  const textYVariant2 = useParallax(scrollYProgress, 300);
+  const textYVariant3 = useParallax(scrollYProgress, 400);
 
-  const setLenisPrevent = () => {
-    if (!sectionRef.current) return;
-    sectionRef.current.setAttribute("data-lenis-prevent", "true");
-    sectionRef.current.setAttribute("data-lenis-prevent-wheel", "true");
-    sectionRef.current.setAttribute("data-lenis-prevent-touch", "true");
-  };
-  const removeLenisPrevent = () => {
-    if (!sectionRef.current) return;
-    sectionRef.current.removeAttribute("data-lenis-prevent");
-    sectionRef.current.removeAttribute("data-lenis-prevent-wheel");
-    sectionRef.current.removeAttribute("data-lenis-prevent-touch");
-  };
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    latest === 1 ? setLenisPrevent() : removeLenisPrevent();
-  });
+  const toolCardY = useParallax(scrollYProgress, 200);
+  const toolCardYVariant1 = useParallax(scrollYProgress, 300);
+  const toolCardYVariant2 = useParallax(scrollYProgress, 400);
   return (
     <motion.div
-      style={{
-        scale,
-        rotate,
-        backgroundColor,
-        y,
-      }}
       ref={sectionRef}
-      className="sticky top-0 z-20 h-dvh space-y-4 overflow-y-auto p-4 pt-20 md:p-8 md:pt-24"
+      style={{ backgroundColor }}
+      className="z-20 flex min-h-dvh flex-col justify-center space-y-4 p-4 pt-8 md:p-8 md:pt-12"
     >
-      <h1>
+      <motion.h1 style={{ y: textY }}>
         Tools I use<span className="text-primary">...</span>
-      </h1>
-
-      <h2>Frontend</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3">
+      </motion.h1>
+      <motion.h2 style={{ y: textYVariant1 }}>Frontend</motion.h2>
+      <div className="grid grid-cols-2 overflow-hidden md:grid-cols-3">
         {frontend.map((name, i) => (
-          <ToolCard key={i} name={name} />
+          <ToolCard key={i} y={toolCardY} name={name} />
         ))}
       </div>
-
-      <h2>Backend</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3">
+      <motion.h2 style={{ y: textYVariant2 }}>Backend</motion.h2>
+      <div className="grid grid-cols-2 overflow-hidden md:grid-cols-3">
         {backend.map((name, i) => (
-          <ToolCard key={i} name={name} />
+          <ToolCard key={i} y={toolCardYVariant1} name={name} />
         ))}
       </div>
-
-      <h2>Other</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3">
+      <motion.h2 style={{ y: textYVariant3 }}>Other</motion.h2>
+      <div className="grid grid-cols-2 overflow-hidden md:grid-cols-3">
         {other.map((name, i) => (
-          <ToolCard key={i} name={name} />
+          <ToolCard key={i} y={toolCardYVariant2} name={name} />
         ))}
       </div>
     </motion.div>
   );
 };
 
-const ToolCard = ({ name }: { name: string }) => {
+const ToolCard = ({ name, y }: { name: string; y: MotionValue<number> }) => {
   const OPEN = "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)";
   const CLOSE = "polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%)";
 
@@ -277,7 +259,8 @@ const ToolCard = ({ name }: { name: string }) => {
   };
 
   return (
-    <div
+    <motion.div
+      style={{ y }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="relative"
@@ -301,8 +284,16 @@ const ToolCard = ({ name }: { name: string }) => {
           </CardHeader>
         </Card>
       </div>
-    </div>
+    </motion.div>
   );
+};
+
+const useParallax = (
+  value: MotionValue<number>,
+  distance: number,
+  invert: boolean = false,
+) => {
+  return useTransform(value, [0, 1], invert ? [0, distance] : [distance, 0]);
 };
 
 const ScrollDownBadge = () => {

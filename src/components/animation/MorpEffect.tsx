@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, MotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export default function MorpEffect() {
+export default function MorpEffect({ y }: { y?: MotionValue<number> }) {
   const textList = useMemo(
     () => ["Frontend", "Fullstack", "Next.js", "React.js"],
     [],
@@ -20,12 +20,12 @@ export default function MorpEffect() {
 
   return (
     <>
-      <h3 className="relative overflow-hidden border-none">
+      <motion.h3 style={{ y }} className="relative overflow-hidden border-none">
         A freelance{" "}
         <MorphText className="text-primary">{textList[index]}</MorphText>{" "}
         developer from{" "}
         <span className="underline decoration-primary">India</span>.
-      </h3>
+      </motion.h3>
     </>
   );
 }
