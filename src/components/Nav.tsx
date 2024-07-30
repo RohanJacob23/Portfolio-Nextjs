@@ -10,7 +10,6 @@ export default function Nav() {
   const links = useMemo(
     () => [
       { id: 1, name: "Home", href: "/" },
-      { id: 2, name: "About", href: "/about" },
       { id: 3, name: "Projects", href: "/projects" },
       { id: 4, name: "Contact", href: "/contact" },
     ],
@@ -77,7 +76,7 @@ const NavBadge = ({
         initial={false}
         animate={position}
         transition={{ type: "spring", duration: 0.35, bounce: 0 }}
-        className="w -0 absolute inset-0 z-20 h-8 bg-primary opacity-100 md:h-10"
+        className="absolute inset-0 z-20 h-8 w-0 bg-primary opacity-100 md:h-10"
       />
     </LazyMotion>
   );

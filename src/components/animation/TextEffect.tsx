@@ -17,7 +17,8 @@ export default function TextEffect({
     <LazyMotion features={domAnimation}>
       <m.span
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true, amount: "all" }}
         transition={{ staggerChildren: 0.025 }}
         className="inline-block"
       >
