@@ -7,76 +7,89 @@ import {
   motion,
   MotionValue,
   useAnimate,
-  useMotionValueEvent,
   useScroll,
   useTransform,
   ValueAnimationTransition,
 } from "framer-motion";
 import React, { useRef } from "react";
-import { ArrowDownIcon } from "@radix-ui/react-icons";
+import { ArrowDownIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Card, CardHeader, CardTitle } from "./ui/card";
 
 export default function Home() {
   const skillList = [
     {
-      id: 1,
       name: "HTML",
-      img: "/skills/htmlLogo.png",
+      src: "/skills/htmlLogo.png",
     },
     {
-      id: 2,
       name: "CSS",
-      img: "/skills/cssLogo.png",
+      src: "/skills/cssLogo.png",
     },
     {
-      id: 3,
       name: "Javascript",
-      img: "/skills/jsLogo.png",
+      src: "/skills/jsLogo.png",
     },
     {
-      id: 4,
       name: "Typescript",
-      img: "/skills/tsLogo.png",
+      src: "/skills/tsLogo.png",
     },
     {
-      id: 5,
       name: "React.js",
-      img: "/skills/reactLogo.png",
+      src: "/skills/reactLogo.png",
     },
     {
-      id: 6,
       name: "Next.js",
-      img: "/skills/nextjsLogo.png",
+      src: "/skills/nextjsLogo.png",
     },
     {
-      id: 7,
       name: "Tailwindcss",
-      img: "/skills/tailwindcssLogo.png",
+      src: "/skills/tailwindcssLogo.png",
     },
     {
-      id: 8,
       name: "Framer Motion",
-      img: "/skills/framer-motion.svg",
+      src: "/skills/framer-motion.svg",
     },
   ];
 
   const frontend = [
-    "HTML",
-    "CSS",
-    "Javascript",
-    "Typescript",
-    "React.js",
-    "Next.js",
-    "Tailwindcss",
+    {
+      name: "HTML",
+      src: "/skills/htmlLogo.png",
+    },
+    { name: "CSS", src: "/skills/cssLogo.png" },
+    {
+      name: "Javascript",
+      src: "/skills/jsLogo.png",
+    },
+    {
+      name: "Typescript",
+      src: "/skills/tsLogo.png",
+    },
+    {
+      name: "React.js",
+      src: "/skills/reactLogo.png",
+    },
+    {
+      name: "Next.js",
+      src: "/skills/nextjsLogo.png",
+    },
+    {
+      name: "Tailwindcss",
+      src: "/skills/tailwindcssLogo.png",
+    },
   ];
-  const backend = ["Typescript", "Node.js", "Express.js", "MongoDB"];
+  const backend = [
+    { name: "Hono.js", src: "/skills/hono.png" },
+    { name: "Node.js", src: "/skills/nodejs.png" },
+    { name: "Express.js", src: "/skills/express.svg" },
+    { name: "MongoDB", src: "/skills/mongodb.png" },
+  ];
   const other = [
-    "Git",
-    "Github",
-    "VS Code",
-    "Figma",
-    "Tailwindcss",
-    "Framer Motion",
+    { name: "Git", src: "/skills/git.png" },
+    { name: "Github" },
+    { name: "VS Code", src: "/skills/vscode.png" },
+    { name: "Figma", src: "/skills/figma.png" },
+    { name: "Framer Motion", src: "/skills/framer-motion.svg" },
   ];
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -85,8 +98,8 @@ export default function Home() {
     offset: ["start start", "end start"],
   });
 
-  // const y = useParallax(scrollYProgress, 500, true);
   const y = useTransform(scrollYProgress, [0, 1], [0, 500]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   return (
     <section className="flex h-full flex-col">
@@ -116,7 +129,7 @@ export default function Home() {
           ))}
         </motion.div>
 
-        {/* <ScrollDownBadge /> */}
+        <ScrollDownBadge y={y} opacity={opacity} />
       </motion.div>
 
       <About />
@@ -129,8 +142,8 @@ export default function Home() {
 const MarqueeList = ({ skillList }: { skillList: Skill[] }) => {
   return (
     <div className="flex animate-marquee justify-center gap-4 group-hover/marquee:paused">
-      {skillList.map(({ id, name, img }) => (
-        <SkillCard key={id} name={name} img={img} />
+      {skillList.map(({ name, src }, i) => (
+        <SkillCard key={i} name={name} img={src} />
       ))}
     </div>
   );
@@ -169,9 +182,15 @@ const SkillSection = ({
   frontend,
   other,
 }: {
-  frontend: string[];
-  backend: string[];
-  other: string[];
+  frontend: Skill[];
+  backend: Skill[];
+  other: (
+    | Skill
+    | {
+        name: string;
+        src?: undefined;
+      }
+  )[];
 }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -194,24 +213,25 @@ const SkillSection = ({
       className="z-20 flex min-h-dvh flex-col justify-center space-y-4 p-4 pt-8 md:p-8 md:pt-12"
     >
       <motion.h1 style={{ y }}>
-        Tools I use<span className="text-primary">...</span>
+        <TextEffect>Tools I use</TextEffect>
+        <TextEffect className="text-primary">...</TextEffect>
       </motion.h1>
       <motion.h2 style={{ y }}>Frontend</motion.h2>
-      <div className="grid grid-cols-2 overflow-hidden md:grid-cols-3">
-        {frontend.map((name, i) => (
-          <ToolCard key={i} y={y} name={name} />
+      <div className="flex max-w-screen-lg flex-wrap gap-2 overflow-hidden">
+        {frontend.map(({ name, src }, i) => (
+          <ToolCard key={i} y={y} name={name} src={src} />
         ))}
       </div>
       <motion.h2 style={{ y }}>Backend</motion.h2>
-      <div className="grid grid-cols-2 overflow-hidden md:grid-cols-3">
-        {backend.map((name, i) => (
-          <ToolCard key={i} y={y} name={name} />
+      <div className="flex max-w-screen-lg flex-wrap gap-2 overflow-hidden">
+        {backend.map(({ name, src }, i) => (
+          <ToolCard key={i} y={y} name={name} src={src} />
         ))}
       </div>
       <motion.h2 style={{ y }}>Other</motion.h2>
-      <div className="grid grid-cols-2 overflow-hidden md:grid-cols-3">
-        {other.map((name, i) => (
-          <ToolCard key={i} y={y} name={name} />
+      <div className="flex max-w-screen-lg flex-wrap gap-2 overflow-hidden">
+        {other.map(({ name, src }, i) => (
+          <ToolCard key={i} y={y} name={name} src={src} />
         ))}
       </div>
     </motion.div>
@@ -229,10 +249,10 @@ const About = () => {
   });
   const { scrollYProgress: backgroundScrollProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end end"],
+    offset: ["start end", "end"],
   });
 
-  const y = useParallax(scrollYProgress, -50);
+  const y = useParallax(scrollYProgress, -500);
 
   const backgroundColor = useTransform(
     backgroundScrollProgress,
@@ -292,7 +312,15 @@ const About = () => {
   );
 };
 
-const ToolCard = ({ name, y }: { name: string; y: MotionValue<number> }) => {
+const ToolCard = ({
+  name,
+  y,
+  src,
+}: {
+  name: string;
+  y: MotionValue<number>;
+  src?: string;
+}) => {
   const OPEN = "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)";
   const CLOSE = "polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%)";
 
@@ -330,8 +358,21 @@ const ToolCard = ({ name, y }: { name: string; y: MotionValue<number> }) => {
       onMouseLeave={handleMouseLeave}
       className="relative"
     >
-      <Card className="cursor-default rounded-none bg-primary text-center text-black">
-        <CardHeader className="p-2 md:p-4">
+      <Card className="flex cursor-default items-center gap-2 rounded-full bg-primary p-2 px-4 text-center text-black">
+        {src ? (
+          <div className="size-8 shrink-0">
+            <Image
+              src={src}
+              width={800}
+              height={800}
+              alt={name}
+              className="aspect-square size-full"
+            />
+          </div>
+        ) : (
+          <GitHubLogoIcon className="size-8" />
+        )}
+        <CardHeader className="p-0">
           <CardTitle className="text-xl md:text-2xl">{name}</CardTitle>
         </CardHeader>
       </Card>
@@ -343,8 +384,21 @@ const ToolCard = ({ name, y }: { name: string; y: MotionValue<number> }) => {
         }}
         className="absolute inset-0 size-full"
       >
-        <Card className="rounded-none text-center text-primary">
-          <CardHeader className="p-2 md:p-4">
+        <Card className="flex items-center gap-2 rounded-full p-2 px-4 text-center text-primary">
+          {src ? (
+            <div className="size-8 shrink-0">
+              <Image
+                src={src}
+                width={800}
+                height={800}
+                alt={name}
+                className="aspect-square size-full"
+              />
+            </div>
+          ) : (
+            <GitHubLogoIcon className="size-8 text-white" />
+          )}
+          <CardHeader className="p-0">
             <CardTitle className="text-xl md:text-2xl">{name}</CardTitle>
           </CardHeader>
         </Card>
@@ -353,26 +407,29 @@ const ToolCard = ({ name, y }: { name: string; y: MotionValue<number> }) => {
   );
 };
 
-const useParallax = (
-  value: MotionValue<number>,
-  distance: number,
-  invert: boolean = false,
-) => {
+const useParallax = (value: MotionValue<number>, distance: number) => {
   return useTransform(value, [0, 1], [-distance, distance]);
-  // return useTransform(value, [0, 1], invert ? [0, distance] : [distance, 0]);
 };
 
-const ScrollDownBadge = () => {
+const ScrollDownBadge = ({
+  y,
+  opacity,
+}: {
+  y: MotionValue<number>;
+  opacity: MotionValue<number>;
+}) => {
   return (
-    <p className="absolute bottom-24 left-1/2 inline-flex size-fit -translate-x-1/2 items-center gap-2 rounded-full border border-primary px-4 py-1.5 text-muted-foreground md:py-2">
+    <motion.p
+      style={{ y, opacity, x: "-50%" }}
+      className="absolute bottom-24 left-1/2 inline-flex size-fit items-center gap-2 rounded-full border border-primary px-4 py-1.5 text-muted-foreground md:py-2"
+    >
       Scroll Down
       <ArrowDownIcon className="inline-block h-5 w-5 animate-bounce text-foreground" />
-    </p>
+    </motion.p>
   );
 };
 
 type Skill = {
-  id: number;
   name: string;
-  img: string;
+  src: string;
 };

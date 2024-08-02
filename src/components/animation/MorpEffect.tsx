@@ -52,7 +52,7 @@ const MorphText = ({
   const textToDisplay = generateKeys(children as string);
   return (
     <span className="text-nowrap">
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence initial={false} mode="popLayout">
         {textToDisplay.map(({ char, key }) => (
           <motion.span
             key={key}

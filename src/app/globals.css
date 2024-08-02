@@ -93,7 +93,7 @@
     @apply text-xl text-muted-foreground;
   }
   html {
-    @apply min-h-screen overflow-x-hidden;
+    @apply min-h-screen overflow-x-clip;
     -webkit-tap-highlight-color: transparent;
   }
   body {
