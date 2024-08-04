@@ -314,7 +314,7 @@ const EducationCard = ({
       initial={{ opacity: 0, filter: "blur(8px)" }}
       whileInView={{ opacity: 1, filter: "blur(0px)" }}
       viewport={{ amount: "all" }}
-      transition={{ type: "tween", ease: "easeOut", bounce: 0, duration: 1 }}
+      transition={{ ease: "easeOut", duration: 0.5 }}
       className="grid cursor-default border p-4"
     >
       {/* header */}
