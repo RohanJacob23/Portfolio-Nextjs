@@ -3,15 +3,8 @@
 import Image from "next/image";
 import MorpEffect from "./animation/MorpEffect";
 import TextEffect from "./animation/TextEffect";
-import {
-  motion,
-  MotionValue,
-  useAnimate,
-  useScroll,
-  useTransform,
-  ValueAnimationTransition,
-} from "framer-motion";
-import React, { useRef } from "react";
+import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useState } from "react";
 import { ArrowDownIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Card, CardHeader, CardTitle } from "./ui/card";
 
@@ -134,6 +127,8 @@ export default function Home() {
 
       <About />
 
+      <Education />
+
       <SkillSection frontend={frontend} backend={backend} other={other} />
     </section>
   );
@@ -174,67 +169,6 @@ const SkillCard = ({ img, name }: { img: string; name: string }) => {
         </div>
       </div>
     </div>
-  );
-};
-
-const SkillSection = ({
-  backend,
-  frontend,
-  other,
-}: {
-  frontend: Skill[];
-  backend: Skill[];
-  other: (
-    | Skill
-    | {
-        name: string;
-        src?: undefined;
-      }
-  )[];
-}) => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "start 0.1"],
-  });
-
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["#18181b", "#09090b"],
-  );
-
-  const y = useTransform(scrollYProgress, [0, 1], [500, 0]);
-
-  return (
-    <motion.div
-      ref={sectionRef}
-      style={{ backgroundColor }}
-      className="z-20 flex min-h-dvh flex-col justify-center space-y-4 p-4 pt-8 md:p-8 md:pt-12"
-    >
-      <motion.h1 style={{ y }}>
-        <TextEffect>Tools I use</TextEffect>
-        <TextEffect className="text-primary">...</TextEffect>
-      </motion.h1>
-      <motion.h2 style={{ y }}>Frontend</motion.h2>
-      <div className="flex max-w-screen-lg flex-wrap gap-2 overflow-hidden">
-        {frontend.map(({ name, src }, i) => (
-          <ToolCard key={i} y={y} name={name} src={src} />
-        ))}
-      </div>
-      <motion.h2 style={{ y }}>Backend</motion.h2>
-      <div className="flex max-w-screen-lg flex-wrap gap-2 overflow-hidden">
-        {backend.map(({ name, src }, i) => (
-          <ToolCard key={i} y={y} name={name} src={src} />
-        ))}
-      </div>
-      <motion.h2 style={{ y }}>Other</motion.h2>
-      <div className="flex max-w-screen-lg flex-wrap gap-2 overflow-hidden">
-        {other.map(({ name, src }, i) => (
-          <ToolCard key={i} y={y} name={name} src={src} />
-        ))}
-      </div>
-    </motion.div>
   );
 };
 
@@ -312,98 +246,175 @@ const About = () => {
   );
 };
 
-const ToolCard = ({
-  name,
-  y,
-  src,
-}: {
-  name: string;
-  y: MotionValue<number>;
-  src?: string;
-}) => {
-  const OPEN = "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)";
-  const CLOSE = "polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%)";
+const Education = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const [cardRef, animateCard] = useAnimate();
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+  const { scrollYProgress: backgroundScrollProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end"],
+  });
 
-  const transitionOptions: ValueAnimationTransition = {
-    type: "spring",
-    duration: 0.65,
-    bounce: 0,
-  };
+  const y = useParallax(scrollYProgress, -500);
 
-  const handleMouseEnter = () => {
-    animateCard(
-      cardRef.current,
-      {
-        clipPath: OPEN,
-      },
-      transitionOptions,
-    );
-  };
-  const handleMouseLeave = () => {
-    animateCard(
-      cardRef.current,
-      {
-        clipPath: CLOSE,
-      },
-      transitionOptions,
-    );
-  };
+  const backgroundColor = useTransform(
+    backgroundScrollProgress,
+    [0, 1],
+    ["#18181b", "#09090b"],
+  );
 
   return (
     <motion.div
-      style={{ y }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className="relative"
+      ref={containerRef}
+      style={{ backgroundColor }}
+      className="relative z-20 min-h-dvh content-center *:will-change-transform"
     >
-      <Card className="flex cursor-default items-center gap-2 rounded-full bg-primary p-2 px-4 text-center text-black">
-        {src ? (
-          <div className="size-8 shrink-0">
-            <Image
-              src={src}
-              width={800}
-              height={800}
-              alt={name}
-              className="aspect-square size-full"
-            />
-          </div>
-        ) : (
-          <GitHubLogoIcon className="size-8" />
-        )}
-        <CardHeader className="p-0">
-          <CardTitle className="text-xl md:text-2xl">{name}</CardTitle>
-        </CardHeader>
-      </Card>
-
-      <div
-        ref={cardRef}
-        style={{
-          clipPath: CLOSE,
-        }}
-        className="absolute inset-0 size-full"
+      <motion.div
+        style={{ y }}
+        className="grid grid-rows-[auto_1fr] gap-4 p-4 pt-8 md:p-8 md:pt-12"
       >
-        <Card className="flex items-center gap-2 rounded-full p-2 px-4 text-center text-primary">
-          {src ? (
-            <div className="size-8 shrink-0">
-              <Image
-                src={src}
-                width={800}
-                height={800}
-                alt={name}
-                className="aspect-square size-full"
-              />
-            </div>
-          ) : (
-            <GitHubLogoIcon className="size-8 text-white" />
-          )}
-          <CardHeader className="p-0">
-            <CardTitle className="text-xl md:text-2xl">{name}</CardTitle>
-          </CardHeader>
-        </Card>
-      </div>
+        <div className="space-y-2">
+          <h1 className="underline decoration-primary">Education</h1>
+          <p className="text-xl text-muted-foreground">
+            A summary of my academic achievements.
+          </p>
+        </div>
+
+        <div className="grid gap-4">
+          <EducationCard
+            qualification="Bachelor of Computer Application"
+            institute="St. Xavier's College, Jaipur"
+            year="2022 - 2025"
+          />
+          <EducationCard
+            qualification="High School"
+            institute="D.A.V International School, Ahmedabad"
+            year="2019 - 2022"
+          />
+        </div>
+      </motion.div>
     </motion.div>
+  );
+};
+
+const EducationCard = ({
+  qualification,
+  institute,
+  year,
+}: {
+  qualification: string;
+  institute: string;
+  year: string;
+}) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, filter: "blur(0px)" }}
+      viewport={{ amount: "all" }}
+      transition={{ type: "tween", ease: "easeOut", bounce: 0, duration: 1 }}
+      className="grid cursor-default border p-4"
+    >
+      {/* header */}
+      <div className="flex flex-wrap items-center justify-between">
+        <h3 className="text-primary">{qualification}</h3>
+        <p className="text-muted-foreground">{year}</p>
+      </div>
+
+      {/* studied from */}
+      <p className="text-lg text-muted-foreground">{institute}</p>
+    </motion.div>
+  );
+};
+
+const SkillSection = ({
+  backend,
+  frontend,
+  other,
+}: {
+  frontend: Skill[];
+  backend: Skill[];
+  other: (
+    | Skill
+    | {
+        name: string;
+        src?: undefined;
+      }
+  )[];
+}) => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "start"],
+  });
+
+  const backgroundColor = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["#18181b", "#09090b"],
+  );
+
+  const y = useTransform(scrollYProgress, [0, 1], [500, 0]);
+
+  return (
+    <motion.div
+      ref={sectionRef}
+      style={{ backgroundColor }}
+      className="z-30 min-h-dvh content-center"
+    >
+      <motion.div
+        style={{ y }}
+        className="flex flex-col justify-center space-y-4 p-4 pt-8 will-change-transform md:p-8 md:pt-12"
+      >
+        <h1>
+          <TextEffect>Tools I use</TextEffect>
+          <TextEffect className="text-primary">...</TextEffect>
+        </h1>
+        <h2>Frontend</h2>
+        <div className="flex max-w-screen-lg flex-wrap gap-2 overflow-hidden">
+          {frontend.map(({ name, src }, i) => (
+            <ToolCard key={i} name={name} src={src} />
+          ))}
+        </div>
+        <h2>Backend</h2>
+        <div className="flex max-w-screen-lg flex-wrap gap-2 overflow-hidden">
+          {backend.map(({ name, src }, i) => (
+            <ToolCard key={i} name={name} src={src} />
+          ))}
+        </div>
+        <h2>Other</h2>
+        <div className="flex max-w-screen-lg flex-wrap gap-2 overflow-hidden">
+          {other.map(({ name, src }, i) => (
+            <ToolCard key={i} name={name} src={src} />
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+const ToolCard = ({ name, src }: { name: string; src?: string }) => {
+  return (
+    <Card className="flex cursor-default items-center gap-2 rounded-full p-2 px-4 text-center text-primary">
+      {src ? (
+        <div className="size-8 shrink-0">
+          <Image
+            src={src}
+            width={800}
+            height={800}
+            alt={name}
+            className="aspect-square size-full"
+          />
+        </div>
+      ) : (
+        <GitHubLogoIcon className="size-8 text-white" />
+      )}
+      <CardHeader className="p-0">
+        <CardTitle className="text-xl md:text-2xl">{name}</CardTitle>
+      </CardHeader>
+    </Card>
   );
 };
 
