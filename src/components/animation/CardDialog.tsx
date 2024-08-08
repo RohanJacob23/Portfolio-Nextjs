@@ -24,12 +24,13 @@ export default function CardDialog({
   setActiveProject: React.Dispatch<React.SetStateAction<Project | undefined>>;
 }) {
   return (
-    <MotionConfig transition={{ bounce: 0, duration: 0.5, type: "spring" }}>
+    <MotionConfig transition={{ bounce: 0, duration: 0.75, type: "spring" }}>
       <section
         key={title}
         className="absolute inset-0 z-50 grid size-full place-items-center p-4 md:place-items-center"
       >
         <motion.div
+          style={{ borderRadius: "8px" }}
           layoutId={`card-${title}`}
           className="relative z-50 size-fit max-w-screen-sm overflow-hidden border bg-card sm:w-1/2"
         >
@@ -50,7 +51,18 @@ export default function CardDialog({
           </motion.div>
 
           {/* card image */}
-          <motion.div layoutId={`card-image-${title}`} className="relative">
+          <motion.div
+            layout
+            initial={{ opacity: 0, scale: 0.75, filter: "blur(8px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            exit={{
+              opacity: 0,
+              filter: "blur(8px)",
+              scale: 0.75,
+              transition: { duration: 0.25 },
+            }}
+            className="relative origin-bottom"
+          >
             <Image
               src={src}
               alt="placeholder"

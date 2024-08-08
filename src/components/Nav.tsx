@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { domAnimation, LazyMotion, m } from "framer-motion";
 import TransitionLink from "./animation/TransitionLink";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 export default function Nav() {
   const links = useMemo(
@@ -16,27 +16,24 @@ export default function Nav() {
     [],
   );
 
-  const [position, setPosition] = useState({
-    x: 0,
-    y: 0,
-    width: 0,
-    opacity: 1,
-  });
+  const [position, setPosition] = useState<{
+    width: number;
+    left: number;
+    height: number;
+    top: number;
+  }>();
 
   const pathname = usePathname();
 
-  const [activeTab, setActiveTab] = useState(pathname);
-
   useEffect(() => {
-    const tab = document.getElementById(pathname);
+    const selectedList = document.getElementById(pathname);
 
-    if (tab) {
-      const rect = tab.getBoundingClientRect();
+    if (selectedList) {
       setPosition({
-        x: rect.left,
-        y: rect.top,
-        width: rect.width,
-        opacity: 1,
+        width: selectedList.offsetWidth,
+        left: selectedList.offsetLeft,
+        height: selectedList.offsetHeight,
+        top: selectedList.offsetTop,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,90 +41,104 @@ export default function Nav() {
 
   return (
     <nav className="sticky top-0 z-40 border-b bg-background/75 backdrop-blur">
-      <ul className="flex w-full justify-center gap-2 px-2 py-4 md:justify-start md:gap-4 md:p-4">
+      <ul className="flex w-full justify-center gap-2 px-2 py-4 md:gap-4 md:p-4">
         {links.map((link) => (
           <Tab
-            setPosition={setPosition}
             href={link.href}
+            id={link.href}
             key={link.id}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
+            setPosition={setPosition}
           >
             {link.name}
           </Tab>
         ))}
       </ul>
-      <NavBadge {...position} />
+      <NavClip position={position} links={links} />
     </nav>
   );
 }
 
-const NavBadge = ({
-  ...position
+const NavClip = ({
+  links,
+  position,
 }: {
-  x: number;
-  y: number;
-  width: number;
-  opacity: number;
+  links: {
+    id: number;
+    name: string;
+    href: string;
+  }[];
+  position?: Position;
 }) => {
   return (
     <LazyMotion features={domAnimation}>
       <m.div
-        initial={false}
-        animate={position}
-        transition={{ type: "spring", duration: 0.35, bounce: 0 }}
-        className="absolute inset-0 z-20 h-8 w-0 bg-primary opacity-100 md:h-10"
-      />
+        initial={{
+          clipPath: "inset(100%)",
+        }}
+        animate={{
+          clipPath: position
+            ? `inset(${position.top}px calc(100% - (${position.left}px + ${position.width}px)) ${position.top}px ${position.left}px round 50px)`
+            : "inset(100%)",
+        }}
+        transition={{ duration: 0.75, type: "spring", bounce: 0.4 }}
+        className="absolute inset-0 z-50 size-full bg-primary will-change-[clip-path]"
+      >
+        <ul className="flex w-full justify-center gap-2 px-2 py-4 md:gap-4 md:p-4">
+          {links.map((link) => (
+            <Tab key={link.id} className="text-black" href={link.href}>
+              {link.name}
+            </Tab>
+          ))}
+        </ul>
+      </m.div>
     </LazyMotion>
   );
 };
 
 const Tab = ({
+  id,
   children,
+  className,
   href,
   setPosition,
-  activeTab,
-  setActiveTab,
 }: {
+  id?: string;
+  className?: string;
   children: string;
   href: string;
-  activeTab: string;
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
-  setPosition: React.Dispatch<
-    React.SetStateAction<{
-      x: number;
-      y: number;
-      width: number;
-      opacity: number;
-    }>
-  >;
+  setPosition?: React.Dispatch<React.SetStateAction<Position | undefined>>;
 }) => {
-  const handleClick = useCallback(
-    (event: React.MouseEvent<HTMLLIElement, MouseEvent>, href: string) => {
-      setActiveTab(href);
+  const handleMouseOver = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+    if (!setPosition) return;
 
-      const targetRect = event.currentTarget.getBoundingClientRect();
+    const target = e.currentTarget;
+    const targetRect = target.getBoundingClientRect();
 
-      setPosition({
-        x: targetRect.left,
-        y: targetRect.top,
-        width: targetRect.width,
-        opacity: 1,
-      });
-    },
-    [setPosition, setActiveTab],
-  );
-
+    setPosition({
+      width: target.offsetWidth,
+      left: target.offsetLeft,
+      height: target.offsetHeight,
+      top: targetRect.top,
+    });
+  };
   return (
-    <li onClick={(e) => handleClick(e, href)}>
+    <li id={id ?? "#"} onClick={handleMouseOver}>
       <TransitionLink
-        id={href}
         href={href}
-        data-active={activeTab === href}
-        className="relative z-40 inline-block px-2 py-1 text-base text-foreground transition-colors duration-300 ease-in-out data-[active=true]:text-primary-foreground md:px-3 md:py-1.5 md:text-xl md:font-medium"
+        className={cn(
+          "inline-block cursor-pointer px-2 py-1 text-base text-foreground md:px-3 md:py-1.5 md:text-xl md:font-medium",
+          className,
+        )}
       >
         {children}
       </TransitionLink>
     </li>
   );
+};
+
+type Position = {
+  width: number;
+  left: number;
+  height: number;
+  top: number;
 };

@@ -73,13 +73,11 @@ export default function page() {
     },
   ];
   return (
-    <div
-      data-lenis-prevent
-      data-lenis-prevent-wheel
-      data-lenis-prevent-touch
-      className="h-full max-h-[calc(100dvh-64.8px)] overflow-y-auto p-4 text-xl md:max-h-[calc(100dvh-72.8px)] md:p-8"
-    >
-      <h2 className="mb-4 border-none">Projects</h2>
+    <div className="h-full p-4 md:p-8">
+      <h2 className="border-none text-3xl">Projects</h2>
+      <p className="mb-4 text-xs text-muted-foreground md:text-sm">
+        (These are clickable cards!!)
+      </p>
 
       <ProjectGallary projects={projects} />
     </div>

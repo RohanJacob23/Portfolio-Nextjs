@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { motion, MotionConfig } from "framer-motion";
-import Image from "next/image";
 import { Project } from "./ProjectGallary";
 
 export default function ProjectCard({
@@ -14,18 +13,6 @@ export default function ProjectCard({
   setShowDialog: React.Dispatch<React.SetStateAction<boolean>>;
   setActiveProject: React.Dispatch<React.SetStateAction<Project | undefined>>;
 }) {
-  useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        setActiveProject(undefined);
-        setShowDialog(false);
-      }
-    }
-
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [setShowDialog, setActiveProject]);
-
   return (
     <MotionConfig transition={{ bounce: 0, duration: 0.5, type: "spring" }}>
       <section
@@ -36,20 +23,23 @@ export default function ProjectCard({
       >
         <motion.div
           layoutId={`card-${project.title}`}
-          className="flex h-full cursor-pointer flex-col gap-2 border bg-zinc-900"
+          variants={{
+            hidden: {
+              opacity: 0,
+              y: 50,
+              filter: "blur(4px)",
+              transition: { type: "spring", bounce: 0.5 },
+            },
+            visible: {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              transition: { type: "spring", bounce: 0.5 },
+            },
+          }}
+          style={{ borderRadius: "50px" }}
+          className="flex h-full cursor-pointer items-center gap-2 border bg-card px-2 md:px-4"
         >
-          <motion.div
-            layoutId={`card-image-${project.title}`}
-            className="relative overflow-hidden p-2 pb-0"
-          >
-            <Image
-              src={project.src}
-              alt="placeholder"
-              width={1920}
-              height={980}
-              className="aspect-video size-full object-cover"
-            />
-          </motion.div>
           {/* card header */}
           <motion.h2
             layoutId={`title-${project.title}`}

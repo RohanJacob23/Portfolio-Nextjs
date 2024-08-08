@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { motion, AnimatePresence } from "framer-motion";
 import CardDialog from "./animation/CardDialog";
@@ -18,9 +18,26 @@ export default function ProjectGallary({ projects }: { projects: Project[] }) {
   const [showDialog, setShowDialog] = useState(false);
   const [activeProject, setActiveProject] = useState<Project>();
 
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setActiveProject(undefined);
+        setShowDialog(false);
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [setShowDialog, setActiveProject]);
+
   return (
     <>
-      <div className="grid max-w-screen-2xl grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 md:gap-x-4 xl:grid-cols-4">
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        transition={{ staggerChildren: 0.12 }}
+        className="flex flex-wrap gap-4"
+      >
         {projects.map((project) => (
           <ProjectCard
             key={project.id}
@@ -29,17 +46,13 @@ export default function ProjectGallary({ projects }: { projects: Project[] }) {
             setShowDialog={setShowDialog}
           />
         ))}
-      </div>
+      </motion.div>
 
       {/* card modal */}
       <AnimatePresence>
         {activeProject && (
           <CardDialog
-            title={activeProject.title}
-            src={activeProject.src}
-            description={activeProject.description}
-            liveLink={activeProject.liveLink}
-            githubLink={activeProject.githubLink}
+            {...activeProject}
             setShowDialog={setShowDialog}
             setActiveProject={setActiveProject}
           />

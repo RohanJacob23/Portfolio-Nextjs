@@ -4,7 +4,7 @@ import Image from "next/image";
 import MorpEffect from "./animation/MorpEffect";
 import TextEffect from "./animation/TextEffect";
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { ArrowDownIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import { Card, CardHeader, CardTitle } from "./ui/card";
 
@@ -313,9 +313,9 @@ const EducationCard = ({
     <motion.div
       initial={{ opacity: 0, filter: "blur(8px)" }}
       whileInView={{ opacity: 1, filter: "blur(0px)" }}
-      viewport={{ amount: "all" }}
+      viewport={{ amount: "all", once: true }}
       transition={{ ease: "easeOut", duration: 0.5 }}
-      className="grid cursor-default border p-4"
+      className="grid cursor-default rounded-lg border p-4"
     >
       {/* header */}
       <div className="flex flex-wrap items-center justify-between">
