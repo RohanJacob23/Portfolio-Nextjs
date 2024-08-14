@@ -66,6 +66,7 @@ export default function CardDialog({
             <Image
               src={src}
               alt="placeholder"
+              priority
               width={1920}
               height={960}
               className="aspect-video size-full object-cover"

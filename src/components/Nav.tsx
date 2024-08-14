@@ -40,8 +40,8 @@ export default function Nav() {
   }, []);
 
   return (
-    <nav className="sticky top-0 z-40 border-b bg-background/75 backdrop-blur">
-      <ul className="flex w-full justify-center gap-2 px-2 py-4 md:gap-4 md:p-4">
+    <nav className="sticky top-2 z-40 mt-4 justify-self-center rounded-full border bg-background/75 backdrop-blur">
+      <ul className="flex w-full justify-center gap-2 p-2 md:gap-4 md:p-4">
         {links.map((link) => (
           <Tab
             href={link.href}
@@ -80,10 +80,10 @@ const NavClip = ({
             ? `inset(${position.top}px calc(100% - (${position.left}px + ${position.width}px)) ${position.top}px ${position.left}px round 50px)`
             : "inset(100%)",
         }}
-        transition={{ duration: 0.75, type: "spring", bounce: 0.4 }}
+        transition={{ duration: 0.75, type: "spring", bounce: 0.3 }}
         className="absolute inset-0 z-50 size-full bg-primary will-change-[clip-path]"
       >
-        <ul className="flex w-full justify-center gap-2 px-2 py-4 md:gap-4 md:p-4">
+        <ul className="flex w-full justify-center gap-2 p-2 md:gap-4 md:p-4">
           {links.map((link) => (
             <Tab key={link.id} className="text-black" href={link.href}>
               {link.name}
@@ -112,13 +112,12 @@ const Tab = ({
     if (!setPosition) return;
 
     const target = e.currentTarget;
-    const targetRect = target.getBoundingClientRect();
 
     setPosition({
       width: target.offsetWidth,
       left: target.offsetLeft,
       height: target.offsetHeight,
-      top: targetRect.top,
+      top: target.offsetTop,
     });
   };
   return (
