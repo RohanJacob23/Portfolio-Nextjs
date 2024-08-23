@@ -41,7 +41,7 @@ export default function Nav() {
 
   return (
     <nav className="sticky top-2 z-40 mt-4 justify-self-center rounded-full border bg-background/75 backdrop-blur">
-      <ul className="flex w-full justify-center gap-2 p-2 md:gap-4 md:p-4">
+      <ul className="flex w-full justify-center gap-2 p-2 md:gap-4 md:px-4">
         {links.map((link) => (
           <Tab
             href={link.href}
@@ -83,7 +83,7 @@ const NavClip = ({
         transition={{ duration: 0.75, type: "spring", bounce: 0.3 }}
         className="absolute inset-0 z-50 size-full bg-primary will-change-[clip-path]"
       >
-        <ul className="flex w-full justify-center gap-2 p-2 md:gap-4 md:p-4">
+        <ul className="flex w-full justify-center gap-2 p-2 md:gap-4 md:px-4">
           {links.map((link) => (
             <Tab key={link.id} className="text-black" href={link.href}>
               {link.name}
