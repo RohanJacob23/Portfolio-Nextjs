@@ -12,6 +12,11 @@ export default function Nav() {
       { id: 1, name: "Home", href: "/" },
       { id: 3, name: "Projects", href: "/projects" },
       { id: 4, name: "Contact", href: "/contact" },
+      {
+        id: 4,
+        name: "Library",
+        href: "https://framer-motion-journey.vercel.app/",
+      },
     ],
     [],
   );
@@ -120,6 +125,8 @@ const Tab = ({
       top: target.offsetTop,
     });
   };
+
+  const isSame = "";
   return (
     <li id={id ?? "#"} onClick={handleMouseOver}>
       <TransitionLink
