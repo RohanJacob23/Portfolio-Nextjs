@@ -50,9 +50,12 @@ export default function page() {
     },
   ];
   return (
-    <div className="flex-1 space-y-4 p-4 text-xl md:p-8">
+    <main
+      data-lenis-prevent-touch
+      className="flex-1 space-y-4 p-4 text-xl md:p-8"
+    >
       {/* social links */}
       <SocialGrid socialLinks={socialLinks} />
-    </div>
+    </main>
   );
 }

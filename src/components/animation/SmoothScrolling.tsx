@@ -4,10 +4,7 @@ import ReactLenis from "lenis/react";
 
 function SmoothScrolling({ children }: { children: React.ReactNode }) {
   return (
-    <ReactLenis
-      root
-      options={{ lerp: 0.05, syncTouch: true, smoothWheel: true }}
-    >
+    <ReactLenis root options={{ syncTouch: true, smoothWheel: true }}>
       {children}
     </ReactLenis>
   );

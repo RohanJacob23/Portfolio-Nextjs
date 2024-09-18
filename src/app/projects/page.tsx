@@ -73,13 +73,13 @@ export default function page() {
     },
   ];
   return (
-    <div className="h-full p-4 md:p-8">
+    <main data-lenis-prevent-touch className="h-full p-4 md:p-8">
       <h2 className="border-none text-3xl">Projects</h2>
       <p className="mb-4 text-xs text-muted-foreground md:text-sm">
         (These are clickable cards!!)
       </p>
 
       <ProjectGallary projects={projects} />
-    </div>
+    </main>
   );
 }

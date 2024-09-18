@@ -95,7 +95,7 @@ export default function Home() {
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   return (
-    <section className="flex h-full flex-col">
+    <main data-lenis-prevent-touch className="flex h-full flex-col">
       <motion.div
         ref={containerRef}
         className="relative z-0 min-h-dvh content-center space-y-4 bg-background p-4 md:p-8"
@@ -130,7 +130,7 @@ export default function Home() {
       <Education />
 
       <SkillSection frontend={frontend} backend={backend} other={other} />
-    </section>
+    </main>
   );
 }
 
